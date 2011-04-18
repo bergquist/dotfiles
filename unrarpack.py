@@ -1,9 +1,12 @@
 #!/usr/local/bin/python
 import os
+import sys
 import commands
 
-currentDir = os.getcwd()
 movieDir = '/movies/'
+currentDir = os.getcwd()
+if sys.argv[0] != None:
+  movieDir = sys.argv[0]
 
 for child in os.listdir(currentDir):
   if os.path.isdir(child):
