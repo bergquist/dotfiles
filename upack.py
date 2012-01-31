@@ -15,5 +15,5 @@ for child in os.listdir(currentDir):
       if rarfile.find('.rar') > 0:
         cmd = 'unrar e -kb ' + os.path.join(subchild, rarfile) + ' ' + movieDir
         print cmd
-#        commands.getstatusoutput(cmd)
+        commands.getstatusoutput(cmd)
     

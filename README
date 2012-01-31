@@ -1,3 +1,9 @@
-unrar a relasepack
 
-./unrarpack <target directory> 
+urelease.sh
+
+cd /awesome.long.release.name.wtf/
+urelease.sh
+
+
+
+upack.py
