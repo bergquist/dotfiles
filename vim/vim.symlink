@@ -1,0 +1,7 @@
+colorscheme desert
+set noswapfile
+set autoindent
+set smartindent
+set nowrap
+set softtabstop=2
+set ch=2 "command line height
