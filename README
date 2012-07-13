@@ -1,9 +1,2 @@
 
-urelease.sh
-
-cd /awesome.long.release.name.wtf/
-urelease.sh
-
-
-
-upack.py
+RakeFile stolen from Holman
