@@ -13,7 +13,8 @@ for child in os.listdir(currentDir):
     subchild = os.path.join(currentDir, child)
     for rarfile in os.listdir(subchild):
       if rarfile.find('.rar') > 0:
-        cmd = 'unrar e -kb ' + os.path.join(subchild, rarfile) + ' ' + movieDir
-        print cmd
+        fullPath = os.path.join(subchild, rarfile)
+        cmd = 'unrar e -kb ' + fullPath + ' ' + movieDir
+        print 'extracting ' + fullPath
         commands.getstatusoutput(cmd)
     
