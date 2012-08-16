@@ -15,6 +15,6 @@ for child in os.listdir(currentDir):
       if rarfile.find('.rar') > 0:
         fullPath = os.path.join(subchild, rarfile)
         cmd = 'unrar e -kb ' + fullPath + ' ' + movieDir
-        print 'extracting ' + fullPath
+        print 'extracting ' + fullPath.split('/')[-1]
         commands.getstatusoutput(cmd)
     
