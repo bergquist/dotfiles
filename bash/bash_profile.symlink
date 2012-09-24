@@ -10,11 +10,23 @@ then
   source ~/.localrc
 fi
 
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+#load shell dotfiles
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && source "$file"
+done
+unset file
 
-# your project folder that we can `c [tab]` to
-# export PROJECTS=~/Code
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
 
-# source every .zsh file in this rep
-# for config_file ($ZSH/**/*.zsh) source $config_file
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# python
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+export PIP_VIRTUALENV_BASE=$WORKON_HOME # Tell pip to create its virtualenvs in $WORKON_HOME.
+export PIP_RESPECT_VIRTUALENV=true
