@@ -21,9 +21,8 @@ def getFirstrarefile(subchild):
       return os.path.join(subchild, rarfile)
 
 def extract(rarfile):
-  cmd = 'unrar e -kb ' + rarfile + ' ' + getDestination()
   print 'extracting ' + rarfile.split('/')[-1]
-  commands.getstatusoutput(cmd)
+  commands.getstatusoutput('unrar e -kb ' + rarfile + ' ' + getDestination())
 
 for folder in subFolders():
   extract(getFirstrarefile(folder))
