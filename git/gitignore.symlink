@@ -4,6 +4,7 @@
 *.swp
 *.rbc
 *.py[co]
+*.pyc
 venv
 
 # Packages

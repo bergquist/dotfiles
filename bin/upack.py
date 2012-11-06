@@ -3,18 +3,27 @@ import os
 import sys
 import commands
 
-movieDir = '/movies/'
-currentDir = os.getcwd()
-if len(sys.argv) > 1 and sys.argv[1] != None:
-  movieDir = sys.argv[1]
+def subFolders():
+	current_dir = os.getcwd();
+	for child in os.listdir(current_dir):
+		if os.path.isdir(child):
+			yield os.path.join(current_dir, child)
 
-for child in os.listdir(currentDir):
-  if os.path.isdir(child):
-    subchild = os.path.join(currentDir, child)
-    for rarfile in os.listdir(subchild):
-      if rarfile.find('.rar') > 0:
-        fullPath = os.path.join(subchild, rarfile)
-        cmd = 'unrar e -kb ' + fullPath + ' ' + movieDir
-        print 'extracting ' + fullPath.split('/')[-1]
-        commands.getstatusoutput(cmd)
-    
+def getDestination():
+	if len(sys.argv) <= 1 or sys.argv[1]:
+		return '/movies/'
+
+	return sys.argv[1]
+
+def getFirstrarefile(subchild):
+	for rarfile in os.listdir(subchild):
+		if rarfile.find('.rar') > 0:
+			return os.path.join(subchild, rarfile)
+
+def extract(rarfile):
+	cmd = 'unrar e -kb ' + rarfile + ' ' + getDestination()
+	print 'extracting ' + rarfile.split('/')[-1]
+	commands.getstatusoutput(cmd)
+
+for folder in subFolders():
+	extract(getFirstrarefile(folder))
