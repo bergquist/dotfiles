@@ -20,7 +20,7 @@ def extract(rarfile, destination):
 def main(current_dir, destination):
   for folder in subFolders(current_dir):
     filepath = firstRarefile(folder)
-    extract(filepath, destination)
+    extract(os.path.join(current_dir, filepath), destination)
 
 destination = '/movies/'
 if len(sys.argv) > 1 and sys.argv[1] is not None:
