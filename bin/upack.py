@@ -14,8 +14,10 @@ def firstRarefile(subchild):
       return os.path.join(subchild, rarfile)
 
 def extract(rarfile, destination):
-  print 'extracting ' + rarfile.split('/')[-1]
-  commands.getstatusoutput('unrar e -kb ' + rarfile + ' ' + destination)
+  #print 'extracting ' + rarfile.split('/')[-1]
+  cmd = 'unrar e -kb ' + rarfile + ' ' + destination
+  print cmd
+  commands.getstatusoutput(cmd)
 
 def main(current_dir, destination):
   for folder in subFolders(current_dir):
