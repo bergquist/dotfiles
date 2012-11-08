@@ -8,3 +8,5 @@
 	excludefile = ~/.gitignore
 [credential]
 	helper = cache
+[alias]
+	st = status
