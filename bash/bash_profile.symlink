@@ -26,6 +26,7 @@ shopt -s histappend
 shopt -s cdspell
 
 alias ls="ls --color"
+alias grep="grep --color=auto"
 
 # python
 #export WORKON_HOME=$HOME/.virtualenvs
