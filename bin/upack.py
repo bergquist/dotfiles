@@ -28,4 +28,5 @@ destination = '/movies/'
 if len(sys.argv) > 1 and sys.argv[1] is not None:
   destination = sys.argv[1]
 
-main(os.getcwd(), destination)
+if __name__ == '__main__':
+  main(os.getcwd(), destination)
