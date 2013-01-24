@@ -1,0 +1,4 @@
+#!/bin/sh
+# add a simple 'nuget' command to Mac OS X shell under Mono
+PATH=/usr/local/bin:$PATH
+mono --runtime=v4.0 /usr/local/bin/NuGet.exe $*
