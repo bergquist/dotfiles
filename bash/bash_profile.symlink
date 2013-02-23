@@ -25,7 +25,7 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
-alias ls="ls --color"
+alias ls="ls -FHG"
 alias grep="grep --color=auto"
 
 # python
