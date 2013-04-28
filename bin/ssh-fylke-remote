@@ -1,2 +1,0 @@
-#!/bin/sh
-ssh y.legendary.se -port 9999

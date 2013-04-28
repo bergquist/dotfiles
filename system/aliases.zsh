@@ -8,3 +8,6 @@ then
   alias ll="gls -l --color"
   alias la='gls -A --color'
 fi
+
+#alias ls="ls -FHG"
+alias grep="grep --color=auto"

@@ -13,5 +13,5 @@
 	helper = cache
 
 [alias]
-	st = status
+	st = status -sb
 	amend = commit --amend
