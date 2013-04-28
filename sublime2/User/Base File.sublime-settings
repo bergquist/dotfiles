@@ -2,28 +2,15 @@
 // are overridden in turn by file type specific settings. Place your settings
 // here, to ensure they're preserved when upgrading.
 {
-  "auto_indent": true,
-  "folder_exclude_patterns":
-  [
-    "node_modules",
-    ".git",
-    "_site",
-    ".sass-cache"
-  ],
-  "font_face": "Source Code Pro",
-  "font_size": 14.0,
-  "ignored_packages":
-  [
-    "Vintage"
-  ],
-  "tab_size": 4,
+  "vintage_start_in_command_mode": true,
+  "tab_size": 2,
   "translate_tabs_to_spaces": true,
-  "trim_trailing_white_space_on_save": true,
   "drawWhiteSpace": true,
   "matchBracketsAngle": true,
   "matchBracketsBraces": true,
   "matchBracketsSquare": true,
   "rulers": [ 80 ],
   "show_minimap": false,
+  "trim_trailing_white_space_on_save": true,
   "highlight_modified_tabs": true
 }
