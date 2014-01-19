@@ -1,5 +1,7 @@
 #export PATH="./bin:$HOME/.rbenv/shims:/usr/local/bin:/usr/local/sbin:$HOME/.sfs:$ZSH/bin:$PATH"
 
+export DOTFILES=~/.dotfiles
+
 export PATH=/usr/bin:$PATH
 export PATH=~/.dotfiles/bin:$PATH
 

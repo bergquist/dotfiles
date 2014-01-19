@@ -9,4 +9,9 @@ ln -s "$ZSH/sublime2/User" "$sublime_dir"
 
 # Grab the Soda theme
 cd "$sublime_dir"
+#if [ -b "Theme - Soda" ]
+#then
+	rm -rf "Theme - Soda"
+#fi
+
 git clone https://github.com/buymeasoda/soda-theme/ "Theme - Soda"
