@@ -14,6 +14,7 @@ then
 fi
 
 # Install homebrew packages
+brew update
 brew install grc coreutils spark
 
 exit 0

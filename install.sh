@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-#
-# bootstrap installs things.
 
-DOTFILES_ROOT="`pwd`"
+DOTFILES=~/.dotfiles
 
 set -e
-
 echo ''
 
+#helper functions
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
+  printf "  [ \033[00;34m..\033[0m ] $1\n"
 }
 
 user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+  printf "\r  [ \033[0;33m?\033[0m ] $1\n"
 }
 
 success () {
@@ -26,6 +24,22 @@ fail () {
   exit
 }
 
+link_files () {
+  ln -s $1 $2
+  success "linked $1 to $2"
+}
+
+#setup bash_profile file
+test -w $HOME/.bash_profile &&
+  mv $HOME/.bash_profile $HOME/.bash_profile.bak &&
+  info "Your original .bash_profile has been backed up to .bash_profile.bak"
+
+cp $DOTFILES/templates/bash_profile.template $HOME/.bash_profile
+info "Copied the template .bash_profile into ~/.bash_profile, edit this file to customize bash-it"
+
+#should this be symlinked instead?
+
+#setup gitconfig
 setup_gitconfig () {
   if ! [ -f git/gitconfig.symlink ]
   then
@@ -42,11 +56,9 @@ setup_gitconfig () {
   fi
 }
 
-link_files () {
-  ln -s $1 $2
-  success "linked $1 to $2"
-}
+setup_gitconfig
 
+#setup symlinks
 install_dotfiles () {
   info 'installing dotfiles'
 
@@ -54,7 +66,7 @@ install_dotfiles () {
   backup_all=false
   skip_all=false
 
-  for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
+  for source in `find $DOTFILES -maxdepth 2 -name \*.symlink`
   do
     dest="$HOME/.`basename \"${source%.*}\"`"
 
@@ -114,10 +126,9 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
 install_dotfiles
 
-# If we are on a mac, lets install and setup homebrew
+#run homebrew
 if [ "$(uname -s)" == "Darwin" ]
 then
   info "installing dependencies"

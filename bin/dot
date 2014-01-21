@@ -6,10 +6,11 @@
 # to make sure you're on the latest and greatest.
 
 # Set OS X defaults
-$ZSH/osx/set-defaults.sh
+
+$DOTFILES/osx/set-defaults.sh
 
 # Upgrade homebrew
 brew update
 
 # Install homebrew packages
-$ZSH/homebrew/install.sh 2>&1
+$DOTFILES/install-brew.sh 2>&1

@@ -1,6 +1,2 @@
-bootstrap stolen from holman
-install zsh first.
-
-
-1 ./scripts/bootstrap
-2 profit!
+1. install bash-it
+2. run bootstrap
