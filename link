@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-cp ~/.dotfiles/system/*.bash ~/.bash_it/custom/
-reload
