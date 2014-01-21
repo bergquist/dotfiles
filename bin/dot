@@ -9,8 +9,5 @@
 
 $DOTFILES/osx/set-defaults.sh
 
-# Upgrade homebrew
-brew update
-
 # Install homebrew packages
 $DOTFILES/install-brew.sh 2>&1
