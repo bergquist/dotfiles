@@ -1,2 +1,5 @@
-1. install bash-it
-2. run bootstrap
+cd ~
+git clone https://github.com/bergquist/dotfiles.git ~/.dotfiles
+./.dotfiles/install.sh
+
+inspired by holman and bash_it
