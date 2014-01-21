@@ -1,0 +1,5 @@
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
