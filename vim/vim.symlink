@@ -4,4 +4,9 @@ set autoindent
 set smartindent
 set nowrap
 set softtabstop=2
+set expandtab
+set showcmd
+set showmatch
+set incsearch
+set hlsearch
 set ch=2 "command line height
