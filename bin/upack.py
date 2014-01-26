@@ -24,7 +24,7 @@ def main(current_dir, destination):
     filepath = firstRarefile(folder)
     extract(os.path.join(current_dir, filepath), destination)
 
-destination = '/home/torrent/public'
+destination = '/home/torrent/share'
 if len(sys.argv) > 1 and sys.argv[1] is not None:
   destination = sys.argv[1]
 
