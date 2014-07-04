@@ -22,4 +22,4 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-alias mkcd="mkdir $1 && cd $1"
+function mkcd () { mkdir -p "$@" && cd "$@"; }
