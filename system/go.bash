@@ -1,4 +1,5 @@
-export GOPATH=/Users/carl/dev/go
+export GOPATH=$HOME/dev/go
+export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin
 
 
