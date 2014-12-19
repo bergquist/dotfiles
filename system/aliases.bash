@@ -22,4 +22,6 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
+alias renewip="sudo ipconfig set en0 BOOTP && sudo ipconfig set en0 DHCP"
+
 function mkcd () { mkdir -p "$@" && cd "$@"; }
