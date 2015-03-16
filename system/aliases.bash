@@ -9,6 +9,11 @@ then
   alias la='gls -A --color'
 fi
 
+if [$(uname -s ) == "MINGW32_NT-6.2"]
+then
+	alias ls='ls --color'
+fi 
+
 #alias ls="ls -FHG"
 alias grep="grep --color=auto"
 
