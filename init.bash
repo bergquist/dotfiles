@@ -1,4 +1,4 @@
-if [$(uname -s ) != "MINGW32_NT-6.2"]
+if [ $(uname -s ) != "MINGW32_NT-6.2" ]
 then
 	source "${DOTFILES}/prompt/colors.theme.bash"
 	source "${DOTFILES}/prompt/base.theme.bash"

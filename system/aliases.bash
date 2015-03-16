@@ -3,7 +3,7 @@
 #   `brew install coreutils`
 
 
-if [$(gls &>/dev/null) ]
+if [ $(gls &>/dev/null) ]
 then
   alias ls="gls -F --color"
   alias l="gls -lAh --color"
@@ -11,7 +11,7 @@ then
   alias la='gls -A --color'
 fi
 
-if [$(uname -s ) == "MINGW32_NT-6.2"]
+if [ $(uname -s ) == "MINGW32_NT-6.2" ]
 then
 	alias ls='ls --color'
 fi 
