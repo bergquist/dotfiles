@@ -6,5 +6,5 @@ fi
 
 if [ $(uname -s ) == "Darwin" ]
 then
-	/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl
+	/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl $1
 fi
