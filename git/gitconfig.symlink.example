@@ -21,6 +21,7 @@
     st = status -sb
     amend = commit --amend
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    ls = log --oneline
 
 [push]
     default = simple
