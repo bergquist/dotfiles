@@ -22,6 +22,7 @@
     amend = commit --amend
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
     ls = log --oneline
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
 [push]
     default = simple
