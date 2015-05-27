@@ -1,3 +1,124 @@
+### INSTALLATION NOTES ###
+# 1. Install Homebrew (https://github.com/mxcl/homebrew)
+# 2. brew install zsh
+# 3. Install OhMyZsh (https://github.com/robbyrussell/oh-my-zsh)
+# 4. brew install reattach-to-user-namespace --wrap-pbcopy-pbpaste && brew link reattach-to-user-namespace
+# 5. Install iTerm2
+# 6. In iTerm2 preferences for your profile set:
+#      Character Encoding: Unicode (UTF-8)
+#      Report Terminal Type: xterm-256color
+# 7. Put itunesartist and itunestrack into PATH
+#
+#
+# Usage:
+# - Prefix is set to Ctrl-a (make sure you remapped Caps Lock to Ctrl)
+# - All prefixed with Ctrl-a
+#   - Last used window: /
+#   - Last used pane:   ;
+#   - Vertical split:   v
+#   - Horizontal split: s
+#   - Previous window:  [
+#   - Next window:      ]
+#   - Choose session:   Ctrl-s
+#   - Quick window:     Ctrl-q
+
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+### LOOK & FEEL ###
+set -g default-terminal "xterm-256color"
+
+# default statusbar colors
+set-option -g status-bg colour235
+set-option -g status-fg colour179
+set-option -g status-attr default
+
+# default window title colors
+set-window-option -g window-status-fg colour244
+set-window-option -g window-status-bg default
+
+# active window title colors
+set-window-option -g window-status-current-fg colour166
+set-window-option -g window-status-current-bg default
+set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg colour235
+set-option -g pane-active-border-fg colour240
+
+# pane number display
+set-option -g display-panes-active-colour colour33
+set-option -g display-panes-colour colour166
+
+# clock
+set-window-option -g clock-mode-colour colour64
+
+# status bar right contents
+set -g status-right-length 65
+set -g status-right "#[fg=colour187][#(itunesartist) - #(itunestrack)] #[fg=default][%H:%M %e-%b-%Y]"
+set -g status-interval 5
+
 set-option -g mouse-select-pane on
 set-option -g mouse-select-window on
-set-window-option -g mode-mouse on
+set-option -g mode-mouse on
+
+set-window-option -g utf8 on
+
+set-option -g status-keys vi
+set-option -g mode-keys vi
+
+#no command delay
+set -sg escape-time 0
+
+#count windows and panes from 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+
+
+### KEYS ###
+
+#using C-a as prefix
+unbind C-b
+set-option -g prefix C-a
+bind C-a send-prefix
+
+#unbind /
+#bind / last-window
+
+unbind %
+bind s split-window -v
+unbind '"'
+bind v split-window -h
+
+#bind h select-pane -L
+#bind j select-pane -D
+#bind k select-pane -U
+#bind l select-pane -R
+
+#unbind {
+#bind { swap-pane -D
+#unbind }
+#bind } swap-pane -U
+
+unbind r
+bind r source-file ~/.tmux.conf; display "Reloaded"
+
+#bind Escape copy-mode
+#bind p paste-buffer
+
+#unbind [
+#bind [ previous-window
+#unbind ]
+#bind ] next-window
+
+#unbind o
+#bind o select-pane -t :.-
+
+#bind C-q command-prompt -I "htop" -p "Quick window command: " "new-window '%%'"
+
+#bind -t vi-copy 'v' begin-selection
+#bind -t vi-copy 'y' copy-selection
+#bind C-c run "tmux save-buffer - | pbcopy"
+#bind C-v run "tmux set-buffer \"$(pbpaste)\"; tmux paste-buffer"
+
+#bind C-s choose-session
