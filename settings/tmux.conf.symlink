@@ -101,7 +101,7 @@ bind v split-window -h
 #bind } swap-pane -U
 
 unbind r
-bind r source-file ~/.tmux.conf; display "Reloaded"
+bind r source-file ~/.tmux.conf\; display "Reloaded"
 
 #bind Escape copy-mode
 #bind p paste-buffer
