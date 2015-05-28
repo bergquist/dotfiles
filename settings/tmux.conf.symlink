@@ -22,7 +22,7 @@
 #   - Choose session:   Ctrl-s
 #   - Quick window:     Ctrl-q
 
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+#set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 ### LOOK & FEEL ###
 set -g default-terminal "xterm-256color"
