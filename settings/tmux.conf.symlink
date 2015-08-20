@@ -22,10 +22,11 @@
 #   - Choose session:   Ctrl-s
 #   - Quick window:     Ctrl-q
 
-#set-option -g default-command "reattach-to-user-namespace -l zsh"
+#   set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 ### LOOK & FEEL ###
 set -g default-terminal "xterm-256color"
+set -gw xterm-keys on
 
 # default statusbar colors
 set-option -g status-bg colour235
@@ -65,6 +66,7 @@ set-window-option -g utf8 on
 
 set-option -g status-keys vi
 set-option -g mode-keys vi
+setw -g mode-keys vi
 
 #no command delay
 set -sg escape-time 0
@@ -90,10 +92,15 @@ bind s split-window -v
 unbind '"'
 bind v split-window -h
 
-#bind h select-pane -L
-#bind j select-pane -D
-#bind k select-pane -U
-#bind l select-pane -R
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+bind < resize-pane -L 4
+bind > resize-pane -R 4
+bind - resize-pane -D 4
+bind + resize-pane -U 4
 
 #unbind {
 #bind { swap-pane -D
