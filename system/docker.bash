@@ -1,1 +1,1 @@
-export DOCKER_HOST=tcp://localhost:4243
+alias docker-init="source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh"
