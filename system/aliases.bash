@@ -16,7 +16,13 @@ then
 	alias ls='ls --color'
 fi 
 
-#alias ls="ls -FHG"
+if [ $(uname -s ) == "Linux" ]
+then
+	alias ls='ls --color'
+	alias la='ls --color --all'
+	alias l='ls --color'
+fi
+
 alias grep="grep --color=auto"
 
 # View HTTP traffic
