@@ -42,6 +42,7 @@ parse_git_branch () {
 
 function prompt_command() {
   PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+  echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007"
 }
 
 PROMPT_COMMAND=prompt_command

@@ -1,1 +1,4 @@
+PS1='\[\e]0;myWindowTitle\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$'
+
+
 source ~/.bash_profile

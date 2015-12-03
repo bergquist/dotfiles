@@ -5,9 +5,13 @@ then
 	source "${DOTFILES}/prompt/sexy.theme.bash"
 fi
 
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
 LIB="${DOTFILES}/system/*.bash"
 for config_file in $LIB
 do
   source $config_file
 done
+
+PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
