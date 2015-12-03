@@ -3,9 +3,6 @@
 DOTFILES=~/.dotfiles
 
 # Set my editor and git editor
-
-
-
 if [ $(uname -s) == "MINGW32_NT-6.2" ]
 then
 	EDITOR="'c:/Program Files (x86)/git/bin/vim'"
@@ -15,17 +12,12 @@ else
 	export GIT_EDITOR='/usr/bin/vim'
 fi
 
-
-# Don't check mail when opening terminal.
-unset MAILCHECK
+unset MAILCHECK # Don't check mail when opening terminal.
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
 alias reload='source ~/.bash_profile'
-
-# Load Bash It
-#source $BASH_IT/bash_it.sh
 
 source $DOTFILES/init.bash
