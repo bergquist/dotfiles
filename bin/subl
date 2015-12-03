@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [ $(uname -s) == "MINGW32_NT-6.2" ]
 then
 	/c/Program\ Files/Sublime\ Text\ 3/subl.exe $1
@@ -8,3 +8,8 @@ if [ $(uname -s ) == "Darwin" ]
 then
 	/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl $1
 fi
+
+if [ $(uname -s) == "Linux" ] 
+then
+       /usr/bin/subl $1
+fi 
