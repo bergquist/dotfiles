@@ -14,7 +14,7 @@ fi
 if [ $(uname -s ) == "MINGW32_NT-6.2" ]
 then
 	alias ls='ls --color'
-fi 
+fi
 
 if [ $(uname -s ) == "Linux" ]
 then
@@ -47,3 +47,5 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias renewip="sudo ipconfig set en0 BOOTP && sudo ipconfig set en0 DHCP"
 
 function mkcd () { mkdir -p "$@" && cd "$@"; }
+
+alias cdgf="cd ~/dev/grafana"
