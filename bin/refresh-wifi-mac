@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Disable the network devices
+ifconfig wlx48ee0cf2d380 down
+
+# Spoof the mac addresses
+/usr/bin/macchanger -r wlx48ee0cf2d380
+
+# Re-enable the devices
+ifconfig wlx48ee0cf2d380 up
