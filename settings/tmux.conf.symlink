@@ -26,7 +26,7 @@
 
 ### LOOK & FEEL ###
 set -g default-terminal "xterm-256color"
-set -gw xterm-keys on
+#set -gw xterm-keys on
 
 # default statusbar colors
 set-option -g status-bg colour235
@@ -54,9 +54,9 @@ set-option -g display-panes-colour colour166
 set-window-option -g clock-mode-colour colour64
 
 # status bar right contents
-set -g status-right-length 65
-set -g status-right "#[fg=colour187][#(itunesartist) - #(itunestrack)] #[fg=default][%H:%M %e-%b-%Y]"
-set -g status-interval 5
+#set -g status-right-length 65
+#set -g status-right "#[fg=colour187][#(itunesartist) - #(itunestrack)] #[fg=default][%H:%M %e-%b-%Y]"
+#set -g status-interval 5
 
 set-option -g mouse-select-pane on
 set-option -g mouse-select-window on
