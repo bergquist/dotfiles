@@ -3,11 +3,11 @@
 // here, to ensure they're preserved when upgrading.
 {
   "auto_indent": true,
-	"folder_exclude_patterns": [ "node_modules", ".git", "_site", ".sass-cache" ],
-	"font_face": "Source Code Pro",
-	"ignored_packages": [ "Vintage" ],
+	"folder_exclude_patterns": [ "public_gen", "node_modules", ".git", "_site", ".sass-cache" ],
+	"font_face": "Ubuntu Mono",
+	"ignored_packages": [ ],
 	"vintage_start_in_command_mode": true,
-	"tab_size": 4,
+	"tab_size": 2,
 	"translate_tabs_to_spaces": true,
 	"drawWhiteSpace": true,
 	"matchBracketsAngle": true,
@@ -16,6 +16,5 @@
 	"show_minimap": false,
 	"trim_trailing_white_space_on_save": true,
 	"highlight_modified_tabs": true,
-	"font_size": 12.0,
-	"theme": "Soda Dark.sublime-theme"
+	"font_size": 14.0,
 }
