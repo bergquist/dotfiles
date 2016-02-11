@@ -309,7 +309,7 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Quickly open cheat file
-nmap <silent> <leader>ec :e ~/.dotfiles/vim/cheat.txt<CR>
+nmap <silent> <leader>ec :e ~/.dotfiles/cheat.txt<CR>
 
 " Refactorings
 function! Refactor()
