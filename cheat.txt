@@ -1,10 +1,13 @@
 special!
 
-leader key      = space
-open nerd tree.   leader + T
-ctrl + P          filesearch
+leader key      =   space
+
+leader + T          open nerd tree.
+ctrl + P            filesearch
 ctrl + n
 leader + p
+:Ag! <text>         search content
+leader + a          search content based on current word
 visual + c + p
 
 #Cursor movement
