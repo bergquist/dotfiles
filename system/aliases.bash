@@ -50,3 +50,4 @@ function mkcd () { mkdir -p "$@" && cd "$@"; }
 
 alias cdgf="cd ~/dev/go/src/github.com/grafana/grafana"
 alias cdgfc="cd ~/dev/go/src/github.com/grafana/grafana-cli"
+alias gd='git diff --color | sed -E "s/^([^-+ ]*)[-+ ]/\\1/" | less -r'
