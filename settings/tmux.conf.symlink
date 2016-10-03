@@ -58,10 +58,8 @@ set-window-option -g clock-mode-colour colour64
 #set -g status-right "#[fg=colour187][#(itunesartist) - #(itunestrack)] #[fg=default][%H:%M %e-%b-%Y]"
 #set -g status-interval 5
 
-set-option -g mouse-select-pane on
-set-option -g mouse-select-window on
-set-option -g mode-mouse on
-
+set -g mouse-utf8 on
+set -g mouse on
 set-window-option -g utf8 on
 
 set-option -g status-keys vi
