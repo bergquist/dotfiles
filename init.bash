@@ -14,4 +14,4 @@ do
 done
 
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-
+setxkbmap -option caps:ctrl_modifier
