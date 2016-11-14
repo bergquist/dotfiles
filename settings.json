@@ -1,0 +1,23 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.idea": true,
+        "**/.svn": true,
+        "**/.DS_Store": true,
+        "public_gen": true,
+        "tmp": true
+    },
+    "search.exclude": {
+        "data/plugins": true,
+		"vendor/github.com": true,
+        "vendor/golang.org": true,
+        "vendor/gopkg.in": true,
+        "data": true,
+        "docker": true
+    },
+    "go.lintOnSave": false,
+    "go.lintTool": "golint",
+    "editor.renderWhitespace": true,
+    "workbench.editor.enablePreview": false
+}
