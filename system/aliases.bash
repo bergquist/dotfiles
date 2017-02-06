@@ -48,8 +48,8 @@ alias renewip="sudo ipconfig set en0 BOOTP && sudo ipconfig set en0 DHCP"
 
 function mkcd () { mkdir -p "$@" && cd "$@"; }
 
-alias cdgf="cd ~/dev/go/src/github.com/grafana/grafana"
-alias cdgfc="cd ~/dev/go/src/github.com/grafana/grafana-cli"
+alias cdgf="cd ~/go/src/github.com/grafana/grafana"
+alias cdgfc="cd ~/go/src/github.com/grafana/grafana-cli"
 alias cddev="cd ~/dev"
 alias gd='git diff --color | sed -E "s/^([^-+ ]*)[-+ ]/\\1/" | less -r'
 
