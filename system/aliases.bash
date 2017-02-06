@@ -53,4 +53,3 @@ alias cdgfc="cd ~/dev/go/src/github.com/grafana/grafana-cli"
 alias cddev="cd ~/dev"
 alias gd='git diff --color | sed -E "s/^([^-+ ]*)[-+ ]/\\1/" | less -r'
 
-setxkbmap -option caps:ctrl_modifier
