@@ -21,6 +21,8 @@ dotfiles:
 #	ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
 #	ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
+	mkdir -p $(HOME)/.config/Code/User
+	ln -sfn $(CURDIR)/settings.json $(HOME)/.config/Code/User/settings.json
 #	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 
 etc:

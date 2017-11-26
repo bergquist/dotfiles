@@ -5,7 +5,7 @@
         "**/.idea": true,
         "**/.svn": true,
         "**/.DS_Store": true,
-        "public_gen": true,
+        "~/go/src/github.com/grafana/grafana/public": true,
         "tmp": true
     },
     "search.exclude": {
@@ -13,11 +13,14 @@
 		"vendor/github.com": true,
         "vendor/golang.org": true,
         "vendor/gopkg.in": true,
+        "**/node_modules": true,
         "data": true,
         "docker": true
     },
     "go.lintOnSave": false,
     "go.lintTool": "golint",
-    "editor.renderWhitespace": true,
+    "go.formatTool": "gofmt",
+    "editor.renderWhitespace": "boundary",
+    "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false
 }
