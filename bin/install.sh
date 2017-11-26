@@ -382,7 +382,7 @@ install_golang() {
 			cd "${GOPATH}/src/github.com/${owner}"
 			git clone "git@github.com:${project}.git"
 			cd "${GOPATH}/src/github.com/${project}"
-            git remote add fork "git@github.com/bergquist/${repo}.git"
+            git remote add fork "git@github.com:bergquist/${repo}.git"
 			)
 		else
 			echo "found ${project} already in gopath"
