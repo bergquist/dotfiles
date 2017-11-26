@@ -66,24 +66,31 @@ setup_sources() {
 	setup_sources_min;
 
 	cat <<-EOF > /etc/apt/sources.list
-	deb http://httpredir.debian.org/debian buster main contrib non-free
-	deb-src http://httpredir.debian.org/debian/ buster main contrib non-free
+	# newer versions of the distribution.
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial main restricted
 
-	deb http://httpredir.debian.org/debian/ buster-updates main contrib non-free
-	deb-src http://httpredir.debian.org/debian/ buster-updates main contrib non-free
+	## Major bug fix updates produced after the final release of the
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
-	deb http://security.debian.org/ buster/updates main contrib non-free
-	deb-src http://security.debian.org/ buster/updates main contrib non-free
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial universe
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates universe
 
-	#deb http://httpredir.debian.org/debian/ jessie-backports main contrib non-free
-	#deb-src http://httpredir.debian.org/debian/ jessie-backports main contrib non-free
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial multiverse
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
-	deb http://httpredir.debian.org/debian experimental main contrib non-free
-	deb-src http://httpredir.debian.org/debian experimental main contrib non-free
+	deb http://se.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+
+	## Uncomment the following two lines to add software from Canonical's
+	# deb http://archive.canonical.com/ubuntu xenial partner
+	# deb-src http://archive.canonical.com/ubuntu xenial partner
+
+	deb http://security.ubuntu.com/ubuntu xenial-security main restricted
+	deb http://security.ubuntu.com/ubuntu xenial-security universe
+	deb http://security.ubuntu.com/ubuntu xenial-security multiverse
 
 	# yubico
-	deb http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
+	#deb http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
+	#deb-src http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
 
 	# tlp: Advanced Linux Power Management
 	# http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
@@ -92,9 +99,9 @@ setup_sources() {
 
 	# add docker apt repo
 	cat <<-EOF > /etc/apt/sources.list.d/docker.list
-	deb https://apt.dockerproject.org/repo debian-buster main
-	deb https://apt.dockerproject.org/repo debian-buster testing
-	deb https://apt.dockerproject.org/repo debian-buster experimental
+	deb https://apt.dockerproject.org/repo xenial main
+	deb https://apt.dockerproject.org/repo xenial testing
+	deb https://apt.dockerproject.org/repo xenial experimental
 	EOF
 
 	# Create an environment variable for the correct distribution
@@ -359,7 +366,7 @@ install_golang() {
 	go get github.com/nsf/gocode
 	go get github.com/rogpeppe/godef
 
-	aliases=( grafana/grafana grafana/grafana-docker prometheus/prometheus kubernetes/kubernetes )
+	aliases=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker prometheus/prometheus kubernetes/kubernetes )
 	for project in "${aliases[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
@@ -373,7 +380,7 @@ install_golang() {
 			(
 			# clone the repo
 			cd "${GOPATH}/src/github.com/${owner}"
-			git clone "https://github.com/${project}.git"
+			git clone "git@github.com:${project}.git"
 			cd "${GOPATH}/src/github.com/${project}"
             git remote add fork "git@github.com/bergquist/${repo}.git"
 			)
@@ -531,7 +538,7 @@ install_vim() {
 	cd "$HOME"
 
 	# install .vim files
-	git clone --recursive git@github.com:jessfraz/.vim.git "${HOME}/.vim"
+	git clone --recursive https://github.com/jessfraz/.vim "${HOME}/.vim"
 	ln -snf "${HOME}/.vim/vimrc" "${HOME}/.vimrc"
 	sudo ln -snf "${HOME}/.vim" /root/.vim
 	sudo ln -snf "${HOME}/.vimrc" /root/.vimrc
@@ -624,6 +631,15 @@ install_vagrant() {
 	vagrant plugin install vagrant-vbguest
 }
 
+install_vscode() {
+	echo "deb https://packages.microsoft.com/repos/vscode stable main vivid contrib" >> /etc/apt/sources.list.d/vscode.list
+
+	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+
+	sudo apt-get update
+	sudo apt-get -y install code --no-install-recommends
+}
+
 
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
@@ -639,6 +655,7 @@ usage() {
 	echo "  scripts                             - install scripts"
 	echo "  syncthing                           - install syncthing"
 	echo "  vagrant                             - install vagrant and virtualbox"
+	echo "  vscode                              - install vscode"
 }
 
 main() {
@@ -680,6 +697,8 @@ main() {
 		get_dotfiles
 	elif [[ $cmd == "vim" ]]; then
 		install_vim
+	elif [[ $cmd == "vscode" ]]; then
+		install_vscode
 	elif [[ $cmd == "golang" ]]; then
 		install_golang "$2"
 	elif [[ $cmd == "scripts" ]]; then

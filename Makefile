@@ -1,7 +1,6 @@
 
-.PHONY: all bin dotfiles etc test shellcheck
+.PHONY: all bin dotfiles etc
 
-#all: bin dotfiles etc
 all: bin dotfiles
 
 bin:
