@@ -2,37 +2,40 @@
 
 DOTFILES=~/.dotfiles
 
-# Set my editor and git editor
-if [ $(uname -s) == "MINGW32_NT-6.2" ]
-then
-	EDITOR="'c:/Program Files (x86)/git/bin/vim'"
-	GIT_EDITOR="'c:/Program Files (x86)/git/bin/vim'"
-else
-	export EDITOR="/usr/bin/subl -w"
-	export GIT_EDITOR='/usr/bin/vim'
-fi
+export EDITOR="/usr/bin/subl -w"
+export GIT_EDITOR='/usr/bin/vim'
 
 unset MAILCHECK # Don't check mail when opening terminal.
 
 alias reload='source ~/.bash_profile'
 
-if [ $(uname -s ) != "MINGW32_NT-6.2" ]
-then
-	source "${DOTFILES}/prompt/colors.theme.bash"
-	source "${DOTFILES}/prompt/base.theme.bash"
-	source "${DOTFILES}/prompt/sexy.theme.bash"
-fi
-
-PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+source "${DOTFILES}/prompt/colors.theme.bash"
+source "${DOTFILES}/prompt/base.theme.bash"
+source "${DOTFILES}/prompt/sexy.theme.bash"
 
 for config_file in "${DOTFILES}/system/*.bash"
 do
   source $config_file
 done
 
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 setxkbmap -option caps:ctrl_modifier
 
+# Syntax-highlight JSON strings or files
+# Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
+json() {
+	if [ -t 0 ]; then # argument
+		python -mjson.tool <<< "$*" | pygmentize -l javascript
+	else # pipe
+		python -mjson.tool | pygmentize -l javascript
+	fi
+}
 
 # enable bash completion in interactive shells
 #if ! shopt -oq posix; then

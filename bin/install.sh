@@ -310,7 +310,7 @@ install_golang() {
 	# purge old src
 	if [[ -d "$GO_SRC" ]]; then
 		sudo rm -rf "$GO_SRC"
-		sudo rm -rf "$GOPATH"
+		#sudo rm -rf "$GOPATH"
 	fi
 
 	GO_VERSION=${GO_VERSION#go}
@@ -374,10 +374,8 @@ install_golang() {
 			# clone the repo
 			cd "${GOPATH}/src/github.com/${owner}"
 			git clone "https://github.com/${project}.git"
-			# fix the remote path, since our gitconfig will make it git@
 			cd "${GOPATH}/src/github.com/${project}"
-			git remote rename origin upstream
-            git remote add origin "https://github.com/bergquist/${repo}.git"
+            git remote add fork "git@github.com/bergquist/${repo}.git"
 			)
 		else
 			echo "found ${project} already in gopath"
@@ -508,8 +506,8 @@ get_dotfiles() {
 	cd "$HOME"
 
 	# install dotfiles from repo
-	git clone git@github.com:jessfraz/dotfiles.git "${HOME}/dotfiles"
-	cd "${HOME}/dotfiles"
+	git clone git@github.com:bergquist/dotfiles.git "${HOME}/.dotfiles"
+	cd "${HOME}/.dotfiles"
 
 	# installs all the things
 	make
