@@ -19,8 +19,18 @@
     },
     "go.lintOnSave": false,
     "go.lintTool": "golint",
-    "go.formatTool": "gofmt",
+    "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
     "explorer.openEditors.visible": 0,
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": true
+    }
 }
