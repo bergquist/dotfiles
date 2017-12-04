@@ -341,7 +341,7 @@ install_golang() {
 	go get golang.org/x/tools/cmd/goimports
 	go get golang.org/x/tools/cmd/gorename
 	go get golang.org/x/tools/cmd/guru
-
+	go get github.com/Unknwon/bra
 	#go get github.com/jessfraz/amicontained
 	#go get github.com/jessfraz/apk-file
 	#go get github.com/jessfraz/audit
