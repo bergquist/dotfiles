@@ -307,6 +307,7 @@ install_docker() {
 install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
+	
 	export GO_SRC=/usr/local/go
 
 	# if we are passing the version
@@ -314,20 +315,26 @@ install_golang() {
 		GO_VERSION=$1
 	fi
 
+	echo "Installing go: ${GO_VERSION}"
+
 	# purge old src
 	if [[ -d "$GO_SRC" ]]; then
 		sudo rm -rf "$GO_SRC"
 		#sudo rm -rf "$GOPATH"
 	fi
 
-	GO_VERSION=${GO_VERSION#go}
+	GO_VERSION=${GO_VERSION}
+
+	echo "https://storage.googleapis.com/golang/${GO_VERSION}.linux-amd64.tar.gz"
 
 	# subshell
 	(
-	curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
-	local user="$USER"
+	curl -sSL "https://storage.googleapis.com/golang/${GO_VERSION}.linux-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
+	local user="carl"
 	# rebuild stdlib for faster builds
-	sudo chown -R "${user}" /usr/local/go/pkg
+	#sudo chown -R "${user}" /usr/local/go/pkg
+	#export PATH=$PATH:/usr/local/go/bin
+	sudo chown -R carl /usr/local/go/pkg
 	CGO_ENABLED=0 go install -a -installsuffix cgo std
 	)
 
@@ -357,7 +364,7 @@ install_golang() {
 	go get github.com/jessfraz/weather
 
 	#go get github.com/axw/gocov/gocov
-	g#o get github.com/crosbymichael/gistit
+	go get github.com/crosbymichael/gistit
 	go get github.com/davecheney/httpstat
 	#go get github.com/FiloSottile/gvt
 	#go get github.com/FiloSottile/vendorcheck
@@ -366,8 +373,8 @@ install_golang() {
 	go get github.com/nsf/gocode
 	go get github.com/rogpeppe/godef
 
-	aliases=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker prometheus/prometheus kubernetes/kubernetes )
-	for project in "${aliases[@]}"; do
+	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker )
+	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
 		if [[ -d "${HOME}/${repo}" ]]; then
@@ -383,6 +390,28 @@ install_golang() {
 			git clone "git@github.com:${project}.git"
 			cd "${GOPATH}/src/github.com/${project}"
             git remote add fork "git@github.com:bergquist/${repo}.git"
+			)
+		else
+			echo "found ${project} already in gopath"
+		fi
+	done
+
+	others=( prometheus/prometheus kubernetes/kubernetes )
+	for project in "${others[@]}"; do
+		owner=$(dirname "$project")
+		repo=$(basename "$project")
+		if [[ -d "${HOME}/${repo}" ]]; then
+			rm -rf "${HOME:?}/${repo}"
+		fi
+
+		mkdir -p "${GOPATH}/src/github.com/${owner}"
+
+		if [[ ! -d "${GOPATH}/src/github.com/${project}" ]]; then
+			(
+			# clone the repo
+			cd "${GOPATH}/src/github.com/${owner}"
+			git clone "git@github.com:${project}.git"
+			cd "${GOPATH}/src/github.com/${project}"
 			)
 		else
 			echo "found ${project} already in gopath"

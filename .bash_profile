@@ -13,10 +13,14 @@ source "${DOTFILES}/prompt/colors.theme.bash"
 source "${DOTFILES}/prompt/base.theme.bash"
 source "${DOTFILES}/prompt/sexy.theme.bash"
 
-for config_file in "${DOTFILES}/system/*.bash"
-do
-  source $config_file
-done
+source "${DOTFILES}/system/aliases.bash"
+source "${DOTFILES}/system/config.bash"
+source "${DOTFILES}/system/docker.bash"
+source "${DOTFILES}/system/golang.bash"
+source "${DOTFILES}/system/google-cloud.bash"
+source "${DOTFILES}/system/path.bash"
+source "${DOTFILES}/system/python.bash"
+
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
