@@ -2,7 +2,7 @@
 
 DOTFILES=~/.dotfiles
 
-export EDITOR="/usr/bin/subl -w"
+export EDITOR="/usr/bin/vim"
 export GIT_EDITOR='/usr/bin/vim'
 
 unset MAILCHECK # Don't check mail when opening terminal.
