@@ -320,12 +320,9 @@ install_golang() {
 	# purge old src
 	if [[ -d "$GO_SRC" ]]; then
 		sudo rm -rf "$GO_SRC"
-		#sudo rm -rf "$GOPATH"
 	fi
 
 	GO_VERSION=${GO_VERSION}
-
-	echo "https://storage.googleapis.com/golang/${GO_VERSION}.linux-amd64.tar.gz"
 
 	# subshell
 	(
@@ -377,10 +374,6 @@ install_golang() {
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
-		if [[ -d "${HOME}/${repo}" ]]; then
-			rm -rf "${HOME:?}/${repo}"
-		fi
-
 		mkdir -p "${GOPATH}/src/github.com/${owner}"
 
 		if [[ ! -d "${GOPATH}/src/github.com/${project}" ]]; then
@@ -396,14 +389,10 @@ install_golang() {
 		fi
 	done
 
-	others=( prometheus/prometheus kubernetes/kubernetes )
+	others=( prometheus/prometheus prometheus/client_golang prometheus/client_model prometheus/common kubernetes/kubernetes )
 	for project in "${others[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
-		if [[ -d "${HOME}/${repo}" ]]; then
-			rm -rf "${HOME:?}/${repo}"
-		fi
-
 		mkdir -p "${GOPATH}/src/github.com/${owner}"
 
 		if [[ ! -d "${GOPATH}/src/github.com/${project}" ]]; then
