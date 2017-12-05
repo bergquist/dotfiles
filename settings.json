@@ -5,7 +5,7 @@
         "**/.idea": true,
         "**/.svn": true,
         "**/.DS_Store": true,
-        "~/go/src/github.com/grafana/grafana/public": true,
+        "public/build": true,
         "tmp": true
     },
     "search.exclude": {
