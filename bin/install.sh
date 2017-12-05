@@ -370,6 +370,16 @@ install_golang() {
 	go get github.com/nsf/gocode
 	go get github.com/rogpeppe/godef
 
+	go get github.com/uudashr/gopkgs/cmd/gopkgs
+	go get github.com/ramya-rao-a/go-outline
+	go get github.com/acroca/go-symbols
+	go get github.com/fatih/gomodifytags
+	go get github.com/haya14busa/goplay/cmd/goplay
+	go get github.com/josharian/impl
+	go get golang.org/x/tools/cmd/godoc
+	go get github.com/cweill/gotests/...
+	go get github.com/derekparker/delve/cmd/dlv
+
 	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker )
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
