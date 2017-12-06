@@ -10,7 +10,7 @@
     },
     "search.exclude": {
         "data/plugins": true,
-		"vendor/github.com": true,
+        "vendor/github.com": true,
         "vendor/golang.org": true,
         "vendor/gopkg.in": true,
         "**/node_modules": true,
