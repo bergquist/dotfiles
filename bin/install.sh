@@ -339,6 +339,7 @@ install_golang() {
 	(
 	set -x
 	set +e
+	go get -u github.com/golang/protobuf/protoc-gen-go
 	go get github.com/golang/lint/golint
 	go get golang.org/x/tools/cmd/cover
 	go get golang.org/x/review/git-codereview
@@ -675,6 +676,34 @@ install_vscode() {
 	sudo apt-get -y install code --no-install-recommends
 }
 
+install_protobuf() {
+	# Make sure you grab the latest version
+	(
+	mkdir -p ~/.tmp-pbuf
+	cd ~/.tmp-pbuf
+
+	VERSION=3.4.0
+
+	curl -OL "https://github.com/google/protobuf/releases/download/v$VERSION/protoc-$VERSION-linux-x86_64.zip"
+
+	# Unzip
+	unzip "protoc-$VERSION-linux-x86_64.zip" -d protoc3
+
+	# Move protoc to /usr/local/bin/
+	sudo rm -rf /usr/local/bin/protoc
+	sudo mv protoc3/bin/* /usr/local/bin/
+
+	# Move protoc3/include to /usr/local/include/
+	sudo rm -rf /usr/local/include/google
+	sudo mv protoc3/include/* /usr/local/include/
+
+	# Optional: change owner
+	sudo chown $USER /usr/local/bin/protoc
+	sudo chown -R $USER /usr/local/include/google
+
+	rm -rf ~/.tmp-pbuf
+	)
+}
 
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
@@ -692,6 +721,7 @@ usage() {
 	echo "  syncthing                           - install syncthing"
 	echo "  vagrant                             - install vagrant and virtualbox"
 	echo "  vscode                              - install vscode"
+	echo "  protobuf                            - install protobuf"
 }
 
 main() {
@@ -746,6 +776,8 @@ main() {
 		install_syncthing
 	elif [[ $cmd == "vagrant" ]]; then
 		install_vagrant "$2"
+	elif [[ $cmd == "protobuf" ]]; then
+		install_protobuf
 	else
 		usage
 	fi
