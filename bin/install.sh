@@ -379,8 +379,15 @@ install_golang() {
 	go get golang.org/x/tools/cmd/godoc
 	go get github.com/cweill/gotests/...
 	go get github.com/derekparker/delve/cmd/dlv
+	)
+}
 
-	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker )
+setup_golang_devenv() {
+	(
+	set -x
+	set +e
+	
+	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker bergquist/bergquist.github.com )
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
@@ -680,6 +687,7 @@ usage() {
 	echo "  dotfiles                            - get dotfiles"
 	echo "  vim                                 - install vim specific dotfiles"
 	echo "  golang                              - install golang and packages"
+	echo "  golang_devenv                       - install my golang dev env"
 	echo "  scripts                             - install scripts"
 	echo "  syncthing                           - install syncthing"
 	echo "  vagrant                             - install vagrant and virtualbox"
@@ -729,6 +737,8 @@ main() {
 		install_vscode
 	elif [[ $cmd == "golang" ]]; then
 		install_golang "$2"
+    elif [[ $cmd == "golang_devenv" ]]; then
+        setup_golang_devenv
 	elif [[ $cmd == "scripts" ]]; then
 		install_scripts
 	elif [[ $cmd == "syncthing" ]]; then
