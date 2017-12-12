@@ -98,11 +98,11 @@ setup_sources() {
 	EOF
 
 	# add docker apt repo
-	cat <<-EOF > /etc/apt/sources.list.d/docker.list
-	deb https://apt.dockerproject.org/repo xenial main
-	deb https://apt.dockerproject.org/repo xenial testing
-	deb https://apt.dockerproject.org/repo xenial experimental
-	EOF
+#	cat <<-EOF > /etc/apt/sources.list.d/docker.list
+#	deb https://apt.dockerproject.org/repo xenial main
+#	deb https://apt.dockerproject.org/repo xenial testing
+#	deb https://apt.dockerproject.org/repo xenial experimental
+#	EOF
 
 	# Create an environment variable for the correct distribution
 	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
@@ -211,6 +211,7 @@ base() {
 		cgroupfs-mount \
 		google-cloud-sdk \
 		libapparmor-dev \
+		chromium-browser \
 		libltdl-dev \
 		libseccomp-dev \
 		network-manager \
@@ -307,7 +308,7 @@ install_docker() {
 install_golang() {
 	export GO_VERSION
 	GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
-	
+
 	export GO_SRC=/usr/local/go
 
 	# if we are passing the version
@@ -387,7 +388,7 @@ setup_golang_devenv() {
 	(
 	set -x
 	set +e
-	
+
 	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker bergquist/bergquist.github.com )
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
@@ -668,12 +669,11 @@ install_vagrant() {
 }
 
 install_vscode() {
-	echo "deb https://packages.microsoft.com/repos/vscode stable main vivid contrib" >> /etc/apt/sources.list.d/vscode.list
-
 	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
-	sudo apt-get update
-	sudo apt-get -y install code --no-install-recommends
+	sudo apt update
+	sudo apt install code
 }
 
 install_protobuf() {
