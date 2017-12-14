@@ -6,6 +6,7 @@
         "**/.svn": true,
         "**/.DS_Store": true,
         "public/build": true,
+        "public/vendor": true,
         "tmp": true
     },
     "search.exclude": {
