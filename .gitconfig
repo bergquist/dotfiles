@@ -32,7 +32,7 @@
     log = true # Include summaries of merged commits in newly created merge commit messages
 
 [commit]
-    gpgsign = true
+    #gpgsign = true
 
 [alias]
     st = status -sb
