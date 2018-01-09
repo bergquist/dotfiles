@@ -475,12 +475,12 @@ install_scripts() {
 	chmod +x /usr/local/bin/lolcat
 
 
-	local scripts=( have light )
+	# local scripts=( have light )
 
-	for script in "${scripts[@]}"; do
-		curl -sSL "https://misc.j3ss.co/binaries/$script" > "/usr/local/bin/${script}"
-		chmod +x "/usr/local/bin/${script}"
-	done
+	# for script in "${scripts[@]}"; do
+	# 	curl -sSL "https://misc.j3ss.co/binaries/$script" > "/usr/local/bin/${script}"
+	# 	chmod +x "/usr/local/bin/${script}"
+	# done
 }
 
 # install syncthing
