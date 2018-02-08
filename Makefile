@@ -5,14 +5,15 @@ all: bin dotfiles
 
 bin:
 	# add aliases for things in bin
-	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
-		f=$$(basename $$file); \
-		sudo ln -sf $$file /usr/local/bin/$$f; \
-	done
+	
+	#for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
+	#	f=$$(basename $$file); \
+	#	sudo ln -sf $$file /usr/local/bin/$$f; \
+	#done
 
 dotfiles:
 	# add aliases for dotfiles
-	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".travis.yml" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg"); do \
+	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".dotfiles" -not -name ".travis.yml" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg"); do \
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
@@ -26,7 +27,7 @@ dotfiles:
 
 etc:
 	sudo mkdir -p /etc/docker/seccomp
-	for file in $(shell find $(CURDIR)/etc -type f -not -name ".*.swp"); do \
+	for file in $(shell find $(CURDIR)/etc -type f -not -name ".*.swp" -not -name ".dotfiles"); do \
 		f=$$(echo $$file | sed -e 's|$(CURDIR)||'); \
 		sudo ln -f $$file $$f; \
 	done
