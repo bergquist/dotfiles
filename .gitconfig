@@ -36,11 +36,11 @@
 
 [alias]
     st = status -sb
-    amend = commit --amend
+    amend = commit -a --amend
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
     ls = log --oneline
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    co = checkout 
+    co = checkout
     undo = reset HEAD~1 --mixed
     bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
     bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
