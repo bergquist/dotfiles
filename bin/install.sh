@@ -348,6 +348,8 @@ install_golang() {
 	go get golang.org/x/tools/cmd/gorename
 	go get golang.org/x/tools/cmd/guru
 	go get github.com/Unknwon/bra
+	
+	go get github.com/github/hub
 	#go get github.com/jessfraz/amicontained
 	#go get github.com/jessfraz/apk-file
 	#go get github.com/jessfraz/audit
@@ -401,7 +403,7 @@ setup_golang_devenv() {
 			cd "${GOPATH}/src/github.com/${owner}"
 			git clone "git@github.com:${project}.git"
 			cd "${GOPATH}/src/github.com/${project}"
-            git remote add fork "git@github.com:bergquist/${repo}.git"
+			git remote add fork "git@github.com:bergquist/${repo}.git"
 			)
 		else
 			echo "found ${project} already in gopath"
