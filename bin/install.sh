@@ -709,6 +709,17 @@ install_spotify() {
 	sudo apt-get install spotify-client
 }
 
+install_jsonnet() {
+	mkdir -p ~/go/src/github.com/google
+	cd ~/go/src/github.com/google
+
+	if cd jsonnet; then git pull; else git clone https://github.com/google/jsonnet; cd jsonnet; fi
+
+	make 
+
+	sudo cp ./jsonnet /usr/local/bin
+}
+
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
 	echo "Usage:"
@@ -727,6 +738,7 @@ usage() {
 	echo "  vscode                              - install vscode"
 	echo "  protobuf                            - install protobuf"
 	echo "  spotify                             - install spotify"
+	echo "  jsonnet                             - install jsonnet"
 }
 
 main() {
@@ -785,6 +797,8 @@ main() {
 		install_vagrant "$2"
 	elif [[ $cmd == "protobuf" ]]; then
 		install_protobuf
+	elif [[ $cmd == "jsonnet" ]]; then
+		install_jsonnet
 	else
 		usage
 	fi

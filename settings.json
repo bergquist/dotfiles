@@ -10,15 +10,14 @@
         "tmp": true
     },
     "search.exclude": {
-        "data/plugins": true,
+        "**/data/plugins": true,
+        "**/node_modules": true,
         "vendor/github.com": true,
         "vendor/golang.org": true,
         "vendor/gopkg.in": true,
-        "**/node_modules": true,
-        "data": true,
         "docker": true
     },
-    "go.lintOnSave": false,
+    "go.lintOnSave": "workspace",
     "go.lintTool": "golint",
     "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
@@ -31,7 +30,12 @@
         "suppressGitVersionWarning": false,
         "suppressLineUncommittedWarning": false,
         "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true,
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": true
-    }
+    },
+    "gitlens.keymap": "chorded",
+    "window.zoomLevel": 0,
+    "gitlens.historyExplorer.enabled": true
 }
