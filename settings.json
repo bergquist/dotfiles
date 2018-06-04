@@ -36,6 +36,6 @@
         "suppressWelcomeNotice": true
     },
     "gitlens.keymap": "chorded",
-    "window.zoomLevel": 0,
-    "gitlens.historyExplorer.enabled": true
+    "gitlens.historyExplorer.enabled": true,
+    "window.zoomLevel": 1
 }

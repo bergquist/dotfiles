@@ -1,6 +1,7 @@
 [user]
     name = bergquist
     email = carl.bergquist@gmail.com
+	signingkey = C59049BE
 
 [color]
     ui = true
