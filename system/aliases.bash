@@ -45,9 +45,9 @@ alias renewip="sudo ipconfig set en0 BOOTP && sudo ipconfig set en0 DHCP"
 function mkcd () { mkdir -p "$@" && cd "$@"; }
 
 alias cdgf="cd ~/go/src/github.com/grafana/grafana"
-alias cdgfc="cd ~/go/src/github.com/grafana/grafana-cli"
-alias cddev="cd ~/dev"
 alias gd='git diff --color | sed -E "s/^([^-+ ]*)[-+ ]/\\1/" | less -r'
+
+alias cddev="cd ~/go/src/github.com/bergquist"
 
 # Get week number
 alias week='date +%V'
