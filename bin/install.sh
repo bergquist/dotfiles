@@ -720,6 +720,15 @@ install_jsonnet() {
 	sudo cp ./jsonnet /usr/local/bin
 }
 
+install_dropbox() {
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu xenial main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+
+	sudo apt update
+	sudo apt install python-gpg dropbox
+}
+
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
 	echo "Usage:"
@@ -739,6 +748,7 @@ usage() {
 	echo "  protobuf                            - install protobuf"
 	echo "  spotify                             - install spotify"
 	echo "  jsonnet                             - install jsonnet"
+	echo "  dropbox                             - install dropbox"
 }
 
 main() {
@@ -799,6 +809,8 @@ main() {
 		install_protobuf
 	elif [[ $cmd == "jsonnet" ]]; then
 		install_jsonnet
+	elif [[ $cmd == "dropbox" ]]; then
+		install_dropbox
 	else
 		usage
 	fi
