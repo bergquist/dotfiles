@@ -410,7 +410,7 @@ setup_golang_devenv() {
 		fi
 	done
 
-	others=( prometheus/prometheus prometheus/client_golang prometheus/client_model prometheus/common kubernetes/kubernetes )
+	others=( bergquist/bergquist.github.com prometheus/prometheus prometheus/client_golang prometheus/client_model prometheus/common )
 	for project in "${others[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
