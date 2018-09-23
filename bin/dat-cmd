@@ -1,5 +1,0 @@
-#/bin/sh
-
-echo "Commands"
-echo "tmux: "
-echo " - tmux attach -t <session name>"

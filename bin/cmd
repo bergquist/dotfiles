@@ -1,0 +1,6 @@
+#/bin/sh
+
+echo "Commands"
+echo "tmux: "
+echo " - 'tmux attach' to attach to session if one is available" 
+echo " - 'tmux attach -t <session name>'"
