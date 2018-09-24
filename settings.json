@@ -1,5 +1,10 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true
+    },
     "files.exclude": {
         "**/.git": true,
         "**/.idea": true,
@@ -21,6 +26,7 @@
     "go.lintTool": "golint",
     "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
+    "editor.minimap.enabled": false,
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
     "gitlens.advanced.messages": {
