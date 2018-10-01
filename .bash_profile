@@ -29,7 +29,8 @@ shopt -s cdspell
 shopt -s nocaseglob
 
 PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-setxkbmap -option caps:ctrl_modifier
+#setxkbmap -option caps:ctrl_modifier
+#setxkbmap -option ctrl:nocaps
 
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`

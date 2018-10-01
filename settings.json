@@ -26,6 +26,7 @@
     "go.lintTool": "golint",
     "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
+    "cSpell.ignoreWords": ["grafana"],
     "editor.minimap.enabled": false,
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,

@@ -4,3 +4,6 @@ echo "Commands"
 echo "tmux: "
 echo " - 'tmux attach' to attach to session if one is available" 
 echo " - 'tmux attach -t <session name>'"
+
+echo " vscode: "
+echo " - 'CTRL + SHIFT + E' switch between text editor and file nav"
