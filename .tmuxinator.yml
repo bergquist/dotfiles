@@ -36,7 +36,8 @@ root: ~/
 
 windows:
   - grafana:
-      layout: main-vertical
+      layout: even-horizontal
+      # even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
@@ -46,11 +47,14 @@ windows:
           - bra run
         - static: 
           - cdgf
-  - git: cdgf
+  - git: 
+      panes:
+        - cdgf
+        - git status
   - devenv: cd ~/go/src/github.com/grafana/grafana/devenv
   - bash: cd ~
   - bash: cd ~
   - bash: cd ~
   - bash: cd ~
-  - bash: cd ~/.dotfiles
+  - dotfiles: cd ~/.dotfiles
   - irssi: ssh bissa
