@@ -110,31 +110,34 @@ setup_sources() {
 
 	# Add the Cloud SDK distribution URI as a package source
 	#echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	echo "deb http://packages.cloud.google.com/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	#echo "deb http://packages.cloud.google.com/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 
 	# Import the Google Cloud Platform public key
+	#curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 	# Add the Cloud SDK for Azure
-	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main" | sudo tee -a /etc/apt/sources.list.d/azure-cloud-sdk.list
+	#echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ xenial main" | sudo tee -a /etc/apt/sources.list.d/azure-cloud-sdk.list
 
 	# Add the Azure Cloud public key
-	sudo apt-key adv --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
+	#sudo apt-key adv --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
 
 	# Add the Google Chrome distribution URI as a package source
-	sudo echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
 
 	# Import the Google Chrome public key
-	sudo curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 	# add docker gpg key
-	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
 	# add the yubico ppa gpg key
-	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
+	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
 
 	# add the tlp apt-repo gpg key
-	sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
+	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
 }
 
 base_min() {
@@ -207,7 +210,6 @@ base() {
 	sudo apt-get install -y \
 		alsa-utils \
 		apparmor \
-		azure-cli \
 		bridge-utils \
 		cgroupfs-mount \
 		google-cloud-sdk \
@@ -220,16 +222,18 @@ base() {
 		s3cmd \
 		--no-install-recommends
 
+	#azure-cli
+
 	# install tlp with recommends
 	sudo apt-get install -y tlp tlp-rdw
 
-	setup_sudo
+	#setup_sudo
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
 	sudo apt-get clean
 
-	install_docker
+	#install_docker
 }
 
 # setup sudo for a user
@@ -664,7 +668,7 @@ install_vagrant() {
 }
 
 install_vscode() {
-	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 	sudo apt update
