@@ -37,20 +37,11 @@ setup_sources_min() {
 		lsb-release \
 		--no-install-recommends
 
-	# hack for latest git (don't judge)
-	#sudo cat <<-EOF > /etc/apt/sources.list.d/git-core.list
-	#deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	#deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	#EOF
-
 	# neovim
 	cat <<-EOF | sudo tee /etc/apt/sources.list.d/neovim.list
 	deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
 	deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
 	EOF
-
-	# add the git-core ppa gpg key
-	# sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
 
 	# add the neovim ppa gpg key
 	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
@@ -109,25 +100,12 @@ setup_sources() {
 	export CLOUD_SDK_REPO
 
 	# Add the Cloud SDK distribution URI as a package source
-	#echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	#echo "deb http://packages.cloud.google.com/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 	# Import the Google Cloud Platform public key
-	#curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
-	# Add the Cloud SDK for Azure
-	#echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ xenial main" | sudo tee -a /etc/apt/sources.list.d/azure-cloud-sdk.list
-
-	# Add the Azure Cloud public key
-	#sudo apt-key adv --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
-
 	# Add the Google Chrome distribution URI as a package source
-	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
-
-	# Import the Google Chrome public key
+	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
 	# add docker gpg key
