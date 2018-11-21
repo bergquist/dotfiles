@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 set -e
 set -o pipefail
 
@@ -45,10 +45,6 @@ setup_sources_min() {
 
 	# add the neovim ppa gpg key
 	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
-
-	# turn off translations, speed up apt-get update
-	#mkdir -p /etc/apt/apt.conf.d
-	#echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
 }
 
 # sets up apt sources
@@ -108,8 +104,27 @@ setup_sources() {
 	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
-	# add docker gpg key
-	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+	#yarn repo and key
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+	# Nodejs
+	
+	VERSION=node_10.x
+	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+	
+	# Dropbox
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+
+	# Spotify
+	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 
 	# add the yubico ppa gpg key
 	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
@@ -168,7 +183,13 @@ base_min() {
 		xcompmgr \
 		xz-utils \
 		zip \
+		python-gpg dropbox \
+		tmux \
+		spotify-client \
 		--no-install-recommends
+
+	# power management for xcfe
+	sudo apt install pm-utils
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
@@ -198,9 +219,10 @@ base() {
 		network-manager \
 		openvpn \
 		s3cmd \
+		code \
+		nodejs \
+		yarn \
 		--no-install-recommends
-
-	#azure-cli
 
 	# install tlp with recommends
 	sudo apt-get install -y tlp tlp-rdw
@@ -249,42 +271,26 @@ setup_sudo() {
 # and adds necessary items to boot params
 install_docker() {
 	# create docker group
-	sudo groupadd docker
-	sudo gpasswd -a "$TARGET_USER" docker
+	#sudo groupadd docker
+	#sudo gpasswd -a "$TARGET_USER" docker
+
+	sudo usermod -aG docker "$TARGET_USER"
 
 	# Include contributed completions
-	mkdir -p /etc/bash_completion.d
-	curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
+	sudo mkdir -p /etc/bash_completion.d
+	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
+	
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
+	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	sudo apt update
+	sudo apt-get install -y docker-ce
 
-	# get the binary
-	local tmp_tar=/tmp/docker.tgz
-	local binary_uri="https://download.docker.com/linux/static/edge/x86_64"
-	local docker_version
-	docker_version=$(curl -sSL "https://api.github.com/repos/docker/docker-ce/releases/latest" | jq --raw-output .tag_name)
-	docker_version=${docker_version#v}
-	# local docker_sha256
-	# docker_sha256=$(curl -sSL "${binary_uri}/docker-${docker_version}.tgz.sha256" | awk '{print $1}')
-	(
-	set -x
-	curl -fSL "${binary_uri}/docker-${docker_version}.tgz" -o "${tmp_tar}"
-	# echo "${docker_sha256} ${tmp_tar}" | sha256sum -c -
-	tar -C /usr/local/bin --strip-components 1 -xzvf "${tmp_tar}"
-	rm "${tmp_tar}"
-	docker -v
-	)
-	chmod +x /usr/local/bin/docker*
-
-	curl -sSL https://raw.githubusercontent.com/jessfraz/dotfiles/master/etc/systemd/system/docker.service > /etc/systemd/system/docker.service
-	curl -sSL https://raw.githubusercontent.com/jessfraz/dotfiles/master/etc/systemd/system/docker.socket > /etc/systemd/system/docker.socket
-
-	systemctl daemon-reload
-	systemctl enable docker
-
-	# update grub with docker configs and power-saving items
-	sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
-	echo "Docker has been installed. If you want memory management & swap"
-	echo "run update-grub & reboot"
+	# # update grub with docker configs and power-saving items
+	# sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
+	# echo "Docker has been installed. If you want memory management & swap"
+	# echo "run update-grub & reboot"
 }
 
 # install/update golang from source
@@ -645,14 +651,6 @@ install_vagrant() {
 	vagrant plugin install vagrant-vbguest
 }
 
-install_vscode() {
-	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-
-	sudo apt update
-	sudo apt install code
-}
-
 install_protobuf() {
 	# Make sure you grab the latest version
 	(
@@ -746,7 +744,6 @@ main() {
 		#check_is_sudo
 		get_user
 
-		# setup /etc/apt/sources.list
 		setup_sources
 
 		base
@@ -754,7 +751,6 @@ main() {
 		#check_is_sudo
 		get_user
 
-		# setup /etc/apt/sources.list
 		setup_sources_min
 
 		base_min
@@ -794,6 +790,9 @@ main() {
 		install_jsonnet
 	elif [[ $cmd == "dropbox" ]]; then
 		install_dropbox
+	elif [[ $cmd == "docker" ]]; then
+		get_user
+		install_docker
 	else
 		usage
 	fi
