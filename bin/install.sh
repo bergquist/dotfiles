@@ -84,13 +84,6 @@ setup_sources() {
 	#deb http://repo.linrunner.de/debian sid main
 	#EOF
 
-	# add docker apt repo
-#	cat <<-EOF > /etc/apt/sources.list.d/docker.list
-#	deb https://apt.dockerproject.org/repo xenial main
-#	deb https://apt.dockerproject.org/repo xenial testing
-#	deb https://apt.dockerproject.org/repo xenial experimental
-#	EOF
-
 	# Create an environment variable for the correct distribution
 	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 	export CLOUD_SDK_REPO
@@ -769,8 +762,6 @@ main() {
 		get_dotfiles
 	elif [[ $cmd == "vim" ]]; then
 		install_vim
-	elif [[ $cmd == "vscode" ]]; then
-		install_vscode
 	elif [[ $cmd == "spotify" ]]; then
 		install_spotify
 	elif [[ $cmd == "golang" ]]; then
@@ -788,8 +779,6 @@ main() {
 		install_protobuf
 	elif [[ $cmd == "jsonnet" ]]; then
 		install_jsonnet
-	elif [[ $cmd == "dropbox" ]]; then
-		install_dropbox
 	elif [[ $cmd == "docker" ]]; then
 		get_user
 		install_docker
