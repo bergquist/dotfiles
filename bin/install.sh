@@ -264,9 +264,7 @@ setup_sudo() {
 # and adds necessary items to boot params
 install_docker() {
 	# create docker group
-	#sudo groupadd docker
-	#sudo gpasswd -a "$TARGET_USER" docker
-
+	getent group docker || groupadd docker
 	sudo usermod -aG docker "$TARGET_USER"
 
 	# Include contributed completions
