@@ -1,2 +1,0 @@
-#!/bin/sh
-ssh moria "/share/CACHEDEV1_DATA/.qpkg/Transmission/scripts/warez-shovel"

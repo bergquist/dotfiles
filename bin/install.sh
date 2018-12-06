@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 set -e
 set -o pipefail
 
@@ -28,8 +28,8 @@ check_is_sudo() {
 
 
 setup_sources_min() {
-	apt-get update
-	apt-get install -y \
+	sudo apt-get update
+	sudo apt-get install -y \
 		apt-transport-https \
 		ca-certificates \
 		curl \
@@ -37,27 +37,14 @@ setup_sources_min() {
 		lsb-release \
 		--no-install-recommends
 
-	# hack for latest git (don't judge)
-	cat <<-EOF > /etc/apt/sources.list.d/git-core.list
-	deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
-	EOF
-
 	# neovim
-	cat <<-EOF > /etc/apt/sources.list.d/neovim.list
+	cat <<-EOF | sudo tee /etc/apt/sources.list.d/neovim.list
 	deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
 	deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
 	EOF
 
-	# add the git-core ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys E1DD270288B4E6030699E45FA1715D88E1DF1F24
-
 	# add the neovim ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
-
-	# turn off translations, speed up apt-get update
-	mkdir -p /etc/apt/apt.conf.d
-	echo 'Acquire::Languages "none";' > /etc/apt/apt.conf.d/99translations
+	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
 }
 
 # sets up apt sources
@@ -65,28 +52,28 @@ setup_sources_min() {
 setup_sources() {
 	setup_sources_min;
 
-	cat <<-EOF > /etc/apt/sources.list
+	#sudo cat <<-EOF > /etc/apt/sources.list
 	# newer versions of the distribution.
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial main restricted
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial main restricted
 
 	## Major bug fix updates produced after the final release of the
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates main restricted
 
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial universe
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates universe
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial universe
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates universe
 
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial multiverse
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial multiverse
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial-updates multiverse
 
-	deb http://se.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+	#deb http://se.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
 
 	## Uncomment the following two lines to add software from Canonical's
 	# deb http://archive.canonical.com/ubuntu xenial partner
 	# deb-src http://archive.canonical.com/ubuntu xenial partner
 
-	deb http://security.ubuntu.com/ubuntu xenial-security main restricted
-	deb http://security.ubuntu.com/ubuntu xenial-security universe
-	deb http://security.ubuntu.com/ubuntu xenial-security multiverse
+	#deb http://security.ubuntu.com/ubuntu xenial-security main restricted
+	#deb http://security.ubuntu.com/ubuntu xenial-security universe
+	#deb http://security.ubuntu.com/ubuntu xenial-security multiverse
 
 	# yubico
 	#deb http://ppa.launchpad.net/yubico/stable/ubuntu xenial main
@@ -94,53 +81,56 @@ setup_sources() {
 
 	# tlp: Advanced Linux Power Management
 	# http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html
-	deb http://repo.linrunner.de/debian sid main
-	EOF
-
-	# add docker apt repo
-#	cat <<-EOF > /etc/apt/sources.list.d/docker.list
-#	deb https://apt.dockerproject.org/repo xenial main
-#	deb https://apt.dockerproject.org/repo xenial testing
-#	deb https://apt.dockerproject.org/repo xenial experimental
-#	EOF
+	#deb http://repo.linrunner.de/debian sid main
+	#EOF
 
 	# Create an environment variable for the correct distribution
 	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
 	export CLOUD_SDK_REPO
 
 	# Add the Cloud SDK distribution URI as a package source
-	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" > /etc/apt/sources.list.d/google-cloud-sdk.list
-
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 	# Import the Google Cloud Platform public key
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-
-	# Add the Cloud SDK for Azure
-	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ wheezy main" > /etc/apt/sources.list.d/azure-cloud-sdk.list
-
-	# Add the Azure Cloud public key
-	apt-key adv --keyserver packages.microsoft.com --recv-keys 52E16F86FEE04B979B07E28DB02C46DF417A0893
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 	# Add the Google Chrome distribution URI as a package source
-	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
-	# Import the Google Chrome public key
-	curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
+	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 
-	# add docker gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+	#yarn repo and key
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+	# Nodejs
+	
+	VERSION=node_10.x
+	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+	
+	# Dropbox
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+
+	# Spotify
+	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 
 	# add the yubico ppa gpg key
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
+	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
 
 	# add the tlp apt-repo gpg key
-	apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
+	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
 }
 
 base_min() {
-	apt-get update
-	apt-get -y upgrade
+	sudo apt-get update
+	sudo apt-get -y upgrade
 
-	apt-get install -y \
+	sudo apt-get install -y \
 		adduser \
 		automake \
 		bash-completion \
@@ -186,11 +176,17 @@ base_min() {
 		xcompmgr \
 		xz-utils \
 		zip \
+		python-gpg dropbox \
+		tmux \
+		spotify-client \
 		--no-install-recommends
 
-	apt-get autoremove
-	apt-get autoclean
-	apt-get clean
+	# power management for xcfe
+	sudo apt install pm-utils
+
+	sudo apt-get autoremove
+	sudo apt-get autoclean
+	sudo apt-get clean
 
 	install_scripts
 }
@@ -200,13 +196,12 @@ base_min() {
 base() {
 	base_min;
 
-	apt-get update
-	apt-get -y upgrade
+	sudo apt-get update
+	sudo apt-get -y upgrade
 
-	apt-get install -y \
+	sudo apt-get install -y \
 		alsa-utils \
 		apparmor \
-		azure-cli \
 		bridge-utils \
 		cgroupfs-mount \
 		google-cloud-sdk \
@@ -217,18 +212,21 @@ base() {
 		network-manager \
 		openvpn \
 		s3cmd \
+		code \
+		nodejs \
+		yarn \
 		--no-install-recommends
 
 	# install tlp with recommends
-	apt-get install -y tlp tlp-rdw
+	sudo apt-get install -y tlp tlp-rdw
 
-	setup_sudo
+	#setup_sudo
 
-	apt-get autoremove
-	apt-get autoclean
-	apt-get clean
+	sudo apt-get autoremove
+	sudo apt-get autoclean
+	sudo apt-get clean
 
-	install_docker
+	#install_docker
 }
 
 # setup sudo for a user
@@ -266,42 +264,24 @@ setup_sudo() {
 # and adds necessary items to boot params
 install_docker() {
 	# create docker group
-	sudo groupadd docker
-	sudo gpasswd -a "$TARGET_USER" docker
+	getent group docker || groupadd docker
+	sudo usermod -aG docker "$TARGET_USER"
 
 	# Include contributed completions
-	mkdir -p /etc/bash_completion.d
-	curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
+	sudo mkdir -p /etc/bash_completion.d
+	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
+	
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
+	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+	sudo apt update
+	sudo apt-get install -y docker-ce
 
-	# get the binary
-	local tmp_tar=/tmp/docker.tgz
-	local binary_uri="https://download.docker.com/linux/static/edge/x86_64"
-	local docker_version
-	docker_version=$(curl -sSL "https://api.github.com/repos/docker/docker-ce/releases/latest" | jq --raw-output .tag_name)
-	docker_version=${docker_version#v}
-	# local docker_sha256
-	# docker_sha256=$(curl -sSL "${binary_uri}/docker-${docker_version}.tgz.sha256" | awk '{print $1}')
-	(
-	set -x
-	curl -fSL "${binary_uri}/docker-${docker_version}.tgz" -o "${tmp_tar}"
-	# echo "${docker_sha256} ${tmp_tar}" | sha256sum -c -
-	tar -C /usr/local/bin --strip-components 1 -xzvf "${tmp_tar}"
-	rm "${tmp_tar}"
-	docker -v
-	)
-	chmod +x /usr/local/bin/docker*
-
-	curl -sSL https://raw.githubusercontent.com/jessfraz/dotfiles/master/etc/systemd/system/docker.service > /etc/systemd/system/docker.service
-	curl -sSL https://raw.githubusercontent.com/jessfraz/dotfiles/master/etc/systemd/system/docker.socket > /etc/systemd/system/docker.socket
-
-	systemctl daemon-reload
-	systemctl enable docker
-
-	# update grub with docker configs and power-saving items
-	sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
-	echo "Docker has been installed. If you want memory management & swap"
-	echo "run update-grub & reboot"
+	# # update grub with docker configs and power-saving items
+	# sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
+	# echo "Docker has been installed. If you want memory management & swap"
+	# echo "run update-grub & reboot"
 }
 
 # install/update golang from source
@@ -348,7 +328,7 @@ install_golang() {
 	go get golang.org/x/tools/cmd/gorename
 	go get golang.org/x/tools/cmd/guru
 	go get github.com/Unknwon/bra
-	
+
 	go get github.com/github/hub
 	#go get github.com/jessfraz/amicontained
 	#go get github.com/jessfraz/apk-file
@@ -463,18 +443,18 @@ install_graphics() {
 # install custom scripts/binaries
 install_scripts() {
 	# install speedtest
-	curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py  > /usr/local/bin/speedtest
-	chmod +x /usr/local/bin/speedtest
+	sudo wget https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py -O /usr/local/bin/speedtest
+	sudo chmod +x /usr/local/bin/speedtest
 
 	# install icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff > /usr/local/bin/icdiff
-	curl -sSL https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff > /usr/local/bin/git-icdiff
-	chmod +x /usr/local/bin/icdiff
-	chmod +x /usr/local/bin/git-icdiff
+	sudo wget https://raw.githubusercontent.com/jeffkaufman/icdiff/master/icdiff -O /usr/local/bin/icdiff
+	sudo wget https://raw.githubusercontent.com/jeffkaufman/icdiff/master/git-icdiff -O /usr/local/bin/git-icdiff
+	sudo chmod +x /usr/local/bin/icdiff
+	sudo chmod +x /usr/local/bin/git-icdiff
 
 	# install lolcat
-	curl -sSL https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat > /usr/local/bin/lolcat
-	chmod +x /usr/local/bin/lolcat
+	sudo wget https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat -O /usr/local/bin/lolcat
+	sudo chmod +x /usr/local/bin/lolcat
 }
 
 # install syncthing
@@ -662,14 +642,6 @@ install_vagrant() {
 	vagrant plugin install vagrant-vbguest
 }
 
-install_vscode() {
-	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-
-	sudo apt update
-	sudo apt install code
-}
-
 install_protobuf() {
 	# Make sure you grab the latest version
 	(
@@ -715,7 +687,7 @@ install_jsonnet() {
 
 	if cd jsonnet; then git pull; else git clone https://github.com/google/jsonnet; cd jsonnet; fi
 
-	make 
+	make
 
 	sudo cp ./jsonnet /usr/local/bin
 }
@@ -760,18 +732,16 @@ main() {
 	fi
 
 	if [[ $cmd == "base" ]]; then
-		check_is_sudo
+		#check_is_sudo
 		get_user
 
-		# setup /etc/apt/sources.list
 		setup_sources
 
 		base
 	elif [[ $cmd == "basemin" ]]; then
-		check_is_sudo
+		#check_is_sudo
 		get_user
 
-		# setup /etc/apt/sources.list
 		setup_sources_min
 
 		base_min
@@ -790,8 +760,6 @@ main() {
 		get_dotfiles
 	elif [[ $cmd == "vim" ]]; then
 		install_vim
-	elif [[ $cmd == "vscode" ]]; then
-		install_vscode
 	elif [[ $cmd == "spotify" ]]; then
 		install_spotify
 	elif [[ $cmd == "golang" ]]; then
@@ -809,8 +777,9 @@ main() {
 		install_protobuf
 	elif [[ $cmd == "jsonnet" ]]; then
 		install_jsonnet
-	elif [[ $cmd == "dropbox" ]]; then
-		install_dropbox
+	elif [[ $cmd == "docker" ]]; then
+		get_user
+		install_docker
 	else
 		usage
 	fi
