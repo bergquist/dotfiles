@@ -105,12 +105,12 @@ setup_sources() {
 	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
 	# Nodejs
-	
+
 	VERSION=node_10.x
 	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
-	
+
 	# Dropbox
 	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
@@ -118,6 +118,10 @@ setup_sources() {
 	# Spotify
 	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+
+	# Kubectl
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 
 	# add the yubico ppa gpg key
 	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
@@ -179,6 +183,7 @@ base_min() {
 		python-gpg dropbox \
 		tmux \
 		spotify-client \
+		kubectl \
 		--no-install-recommends
 
 	# power management for xcfe
@@ -270,7 +275,7 @@ install_docker() {
 	# Include contributed completions
 	sudo mkdir -p /etc/bash_completion.d
 	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
-	
+
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
