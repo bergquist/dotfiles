@@ -45,5 +45,7 @@
     "gitlens.keymap": "chorded",
     "gitlens.historyExplorer.enabled": true,
     "window.zoomLevel": 1,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true
 }

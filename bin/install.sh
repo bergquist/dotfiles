@@ -706,6 +706,15 @@ install_dropbox() {
 	sudo apt install python-gpg dropbox
 }
 
+install_gcloud() {
+	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+	sudo apt-get update 
+	sudo apt-get install google-cloud-sdk google-cloud-sdk-app-engine-go
+}
+
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
 	echo "Usage:"
@@ -726,6 +735,7 @@ usage() {
 	echo "  spotify                             - install spotify"
 	echo "  jsonnet                             - install jsonnet"
 	echo "  dropbox                             - install dropbox"
+	echo "  gcloud                              - install gcloud"
 }
 
 main() {
@@ -785,6 +795,10 @@ main() {
 	elif [[ $cmd == "docker" ]]; then
 		get_user
 		install_docker
+	elif [[ $cmd == "dropbox" ]]; then
+		install_dropbox
+	elif [[ $cmd == "gcloud" ]]; then
+		install_gcloud
 	else
 		usage
 	fi

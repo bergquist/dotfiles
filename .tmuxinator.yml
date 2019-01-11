@@ -47,10 +47,16 @@ windows:
           - bra run
         - static: 
           - cdgf
-  - git: 
+  - git:
+      layout: main-vertical 
       panes:
-        - cdgf
-        - git status
+        - git:
+          - cdgf
+          - git status
+        - git2:
+          - cdgf
+
+      
   - devenv: cd ~/go/src/github.com/grafana/grafana/devenv
   - bash: cd ~
   - bash: cd ~
