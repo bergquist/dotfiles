@@ -792,6 +792,8 @@ main() {
 		install_protobuf
 	elif [[ $cmd == "jsonnet" ]]; then
 		install_jsonnet
+	elif [[ $cmd == "dropbox" ]]; then
+		install_dropbox
 	elif [[ $cmd == "docker" ]]; then
 		get_user
 		install_docker

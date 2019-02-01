@@ -14,15 +14,13 @@
         "public/vendor": true,
         "tmp": true
     },
+    "search.useIgnoreFiles": false,
     "search.exclude": {
         "**/data/plugins": true,
         "**/node_modules": true,
-        "vendor/github.com": true,
-        "vendor/golang.org": true,
-        "vendor/gopkg.in": true,
-        "docker": true
+        "**/vendor": true
     },
-    "go.lintOnSave": "workspace",
+    "go.lintOnSave": "file",
     "go.lintTool": "golint",
     "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
