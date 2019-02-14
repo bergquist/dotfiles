@@ -1,7 +1,0 @@
-#!/bin/sh
-URL="https://grafana.com/api${1:-}"
-if [ -n "${1:-}" ]; then
-    shift
-fi
-curl -sS -H "Authorization: Bearer $GRAFANACOM_TOKEN" "$URL" "$@"
-echo ''
