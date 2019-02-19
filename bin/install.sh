@@ -220,6 +220,7 @@ base() {
 		code \
 		nodejs \
 		yarn \
+		pinta \
 		--no-install-recommends
 
 	# install tlp with recommends
