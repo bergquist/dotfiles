@@ -5,6 +5,8 @@
         "**/.git/subtree-cache/**": true,
         "**/node_modules/*/**": true
     },
+    "workbench.settings.useSplitJSON": true,
+    "workbench.settings.editor": "json",
     "files.exclude": {
         "**/.git": true,
         "**/.idea": true,
@@ -24,7 +26,9 @@
     "go.lintTool": "golint",
     "go.formatTool": "goreturns",
     "editor.renderWhitespace": "boundary",
-    "cSpell.ignoreWords": ["grafana"],
+    "cSpell.ignoreWords": [
+        "grafana"
+    ],
     "editor.minimap.enabled": false,
     "explorer.openEditors.visible": 0,
     "workbench.editor.enablePreview": false,
@@ -41,9 +45,29 @@
         "suppressWelcomeNotice": true
     },
     "gitlens.keymap": "chorded",
-    "gitlens.historyExplorer.enabled": true,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 2,
     "explorer.confirmDelete": false,
     "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true
+    "gitlens.views.lineHistory.enabled": false,
+    "go.useLanguageServer": true,
+    "go.languageServerExperimentalFeatures": {
+        "diagnostics": true // for diagnostics as you type
+    },
+    "[go]": {
+        "editor.snippetSuggestions": "none",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "gopls": {
+        "usePlaceholders": true, // add parameter placeholders when completing a function
+        "enhancedHover": true, // experimental to improve quality of hover (will be on by default soon)
+    },
+    "go.buildOnSave": "off",
+    "go.vetOnSave": "off",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    }
 }
