@@ -106,7 +106,7 @@ setup_sources() {
 
 	# Nodejs
 
-	VERSION=node_10.x
+	VERSION=node_12.x
 	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
