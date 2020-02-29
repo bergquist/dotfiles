@@ -44,6 +44,8 @@ json() {
 
 eval "$(hub alias -s)"
 
+# include timestamp in bash history
+HISTTIMEFORMAT="%F %T "
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
