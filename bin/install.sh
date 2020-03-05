@@ -28,8 +28,8 @@ check_is_sudo() {
 
 
 setup_sources_min() {
-	sudo apt-get update
-	sudo apt-get install -y \
+	apt-get update
+	apt-get install -y \
 		apt-transport-https \
 		ca-certificates \
 		curl \
@@ -38,19 +38,30 @@ setup_sources_min() {
 		--no-install-recommends
 
 	# neovim
-	cat <<-EOF | sudo tee /etc/apt/sources.list.d/neovim.list
-	deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
-	EOF
+	# cat <<-EOF | tee /etc/apt/sources.list.d/neovim.list
+	# deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
+	# deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
+	# EOF
 
 	# add the neovim ppa gpg key
-	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
+	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
 }
 
 # sets up apt sources
 # assumes you are going to use debian buster
 setup_sources() {
 	setup_sources_min;
+
+	cat <<-EOF > /etc/apt/sources.list
+	deb http://httpredir.debian.org/debian buster main contrib non-free
+	deb-src http://httpredir.debian.org/debian/ buster main contrib non-free
+	deb http://httpredir.debian.org/debian/ buster-updates main contrib non-free
+	deb-src http://httpredir.debian.org/debian/ buster-updates main contrib non-free
+	deb http://security.debian.org/ buster/updates main contrib non-free
+	deb-src http://security.debian.org/ buster/updates main contrib non-free
+	deb http://httpredir.debian.org/debian experimental main contrib non-free
+	deb-src http://httpredir.debian.org/debian experimental main contrib non-free
+	EOF
 
 	#sudo cat <<-EOF > /etc/apt/sources.list
 	# newer versions of the distribution.
@@ -89,52 +100,52 @@ setup_sources() {
 	export CLOUD_SDK_REPO
 
 	# Add the Cloud SDK distribution URI as a package source
-	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee /etc/apt/sources.list.d/google-cloud-sdk.list
 	# Import the Google Cloud Platform public key
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
 	# Add the Google Chrome distribution URI as a package source
-	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list
+	curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 
-    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
-	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | tee /etc/apt/sources.list.d/vscode.list
+	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 
 	#yarn repo and key
-	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 	# Nodejs
 
 	VERSION=node_12.x
-	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
-	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | tee /etc/apt/sources.list.d/nodesource.list
+	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | tee -a /etc/apt/sources.list.d/nodesource.list
+	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 
 	# Dropbox
-	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | tee /etc/apt/sources.list.d/dropbox.list
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
 
 	# Spotify
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+	echo "deb http://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 
 	# Kubectl
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 
 	# add the yubico ppa gpg key
-	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
+	#apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
 
 	# add the tlp apt-repo gpg key
-	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
+	#apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
 }
 
 base_min() {
-	sudo apt-get update
-	sudo apt-get -y upgrade
+	apt-get update
+	apt-get -y upgrade
 
-	sudo apt-get install -y \
+	apt-get install -y \
 		adduser \
 		automake \
 		bash-completion \
@@ -189,9 +200,9 @@ base_min() {
 	# power management for xcfe
 	sudo apt install pm-utils
 
-	sudo apt-get autoremove
-	sudo apt-get autoclean
-	sudo apt-get clean
+	apt-get autoremove
+	apt-get autoclean
+	apt-get clean
 
 	install_scripts
 }
@@ -201,10 +212,10 @@ base_min() {
 base() {
 	base_min;
 
-	sudo apt-get update
-	sudo apt-get -y upgrade
+	apt-get update
+	apt-get -y upgrade
 
-	sudo apt-get install -y \
+	apt-get install -y \
 		alsa-utils \
 		apparmor \
 		bridge-utils \
@@ -224,13 +235,13 @@ base() {
 		--no-install-recommends
 
 	# install tlp with recommends
-	sudo apt-get install -y tlp tlp-rdw
+	apt-get install -y tlp tlp-rdw
 
 	#setup_sudo
 
-	sudo apt-get autoremove
-	sudo apt-get autoclean
-	sudo apt-get clean
+	apt-get autoremove
+	apt-get autoclean
+	apt-get clean
 
 	#install_docker
 }
@@ -277,12 +288,12 @@ install_docker() {
 	sudo mkdir -p /etc/bash_completion.d
 	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
 
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
 
 	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	sudo apt update
-	sudo apt-get install -y docker-ce
+	apt-get install -y docker-ce
 
 	# # update grub with docker configs and power-saving items
 	# sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
@@ -578,9 +589,9 @@ install_vim() {
 	sudo update-alternatives --config editor
 
 	# install things needed for deoplete for vim
-	sudo apt-get update
+	apt-get update
 
-	sudo apt-get install -y \
+	apt-get install -y \
 		python3-pip \
 		python3-setuptools \
 		--no-install-recommends
@@ -678,13 +689,13 @@ install_protobuf() {
 }
 
 install_spotify() {
-	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
 
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	echo "deb http://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list
 
-	sudo apt-get update
+	apt-get update
 
-	sudo apt-get install spotify-client
+	apt-get install spotify-client
 }
 
 install_jsonnet() {
@@ -699,9 +710,9 @@ install_jsonnet() {
 }
 
 install_dropbox() {
-	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu xenial main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu xenial main" | tee /etc/apt/sources.list.d/dropbox.list
 
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
 
 	sudo apt update
 	sudo apt install python-gpg dropbox
@@ -709,11 +720,11 @@ install_dropbox() {
 
 install_gcloud() {
 	export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-	sudo apt-get update 
-	sudo apt-get install google-cloud-sdk google-cloud-sdk-app-engine-go
+	apt-get update 
+	apt-get install google-cloud-sdk google-cloud-sdk-app-engine-go
 }
 
 usage() {
