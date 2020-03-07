@@ -45,7 +45,7 @@
         "suppressWelcomeNotice": true
     },
     "gitlens.keymap": "chorded",
-    "window.zoomLevel": 2,
+    "window.zoomLevel": 1,
     "explorer.confirmDelete": false,
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": false,
