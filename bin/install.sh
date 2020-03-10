@@ -654,7 +654,7 @@ install_protobuf() {
 	mkdir -p ~/.tmp-pbuf
 	cd ~/.tmp-pbuf
 
-	VERSION=3.6.1
+	VERSION=3.4.0
 
 	curl -OL "https://github.com/google/protobuf/releases/download/v$VERSION/protoc-$VERSION-linux-x86_64.zip"
 
