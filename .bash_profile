@@ -45,9 +45,6 @@ json() {
 # add hub features to git
 eval "$(hub alias -s)"
 
-# load ssh keys into terminal
-eval $(ssh-agent)
-
 # include timestamp in bash history
 HISTTIMEFORMAT="%F %T "
 
