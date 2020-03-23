@@ -270,7 +270,7 @@ setup_sudo() {
 # and adds necessary items to boot params
 install_docker() {
 	# create docker group
-	getent group docker || groupadd docker
+	getent group docker || sudo groupadd docker
 	sudo usermod -aG docker "$TARGET_USER"
 
 	# Include contributed completions
