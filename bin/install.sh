@@ -226,13 +226,11 @@ base() {
 	# install tlp with recommends
 	sudo apt-get install -y tlp tlp-rdw
 
-	#setup_sudo
-
 	sudo apt-get autoremove
 	sudo apt-get autoclean
 	sudo apt-get clean
 
-	#install_docker
+	install_docker
 }
 
 # setup sudo for a user
@@ -377,7 +375,7 @@ setup_golang_devenv() {
 	set -x
 	set +e
 
-	myprojs=( grafana/grafana grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker bergquist/bergquist.github.com )
+	myprojs=( grafana/grafana grafana/grafana-plugin-sdk-go grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker bergquist/bergquist.github.com )
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
