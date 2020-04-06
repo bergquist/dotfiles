@@ -264,8 +264,7 @@ setup_sudo() {
 	echo -e "\n# tmpfs for downloads\ntmpfs\t/home/${TARGET_USER}/Downloads\ttmpfs\tnodev,nosuid,size=2G\t0\t0" >> /etc/fstab
 }
 
-# installs docker master
-# and adds necessary items to boot params
+# installs docker and setup user
 install_docker() {
 	# create docker group
 	getent group docker || sudo groupadd docker
@@ -278,7 +277,6 @@ install_docker() {
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
-	#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	sudo apt update
 	sudo apt-get install -y docker-ce
 
@@ -693,6 +691,7 @@ install_jsonnet() {
 	make
 
 	sudo cp ./jsonnet /usr/local/bin
+	sudo cp ./jsonnetfmt /usr/local/bin
 }
 
 install_dropbox() {

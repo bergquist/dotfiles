@@ -24,7 +24,7 @@
     },
     "go.lintOnSave": "file",
     "go.lintTool": "golint",
-    "go.formatTool": "goreturns",
+    "go.formatTool": "goimports",
     "editor.renderWhitespace": "boundary",
     "cSpell.ignoreWords": [
         "grafana"
@@ -49,7 +49,7 @@
     "explorer.confirmDelete": false,
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": false,
-    "go.useLanguageServer": true,
+    "go.useLanguageServer": false,
     "go.languageServerExperimentalFeatures": {
         "diagnostics": true // for diagnostics as you type
     },
