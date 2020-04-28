@@ -129,6 +129,9 @@ setup_sources() {
 
 	# add the tlp apt-repo gpg key
 	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
+
+	#add keypass repository
+	sudo apt-add-repository ppa:jtaylor/keepass
 }
 
 base_min() {
@@ -183,6 +186,8 @@ base_min() {
 		zip \
 		tmux \
 		spotify-client \
+		kubectl \
+		keepass2 \
 		--no-install-recommends
 
 	# power management for xcfe
