@@ -44,7 +44,7 @@ windows:
       panes:
         - grafana:
           - cdgf
-          - bra run
+          - make run
         - static: 
           - cdgf
   - git:
