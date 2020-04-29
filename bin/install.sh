@@ -85,7 +85,8 @@ setup_sources() {
 	#EOF
 
 	# Create an environment variable for the correct distribution
-	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+	#CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+	CLOUD_SDK_REPO="cloud-sdk-xenial"
 	export CLOUD_SDK_REPO
 
 	# Add the Cloud SDK distribution URI as a package source
@@ -105,14 +106,14 @@ setup_sources() {
 	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
 	# Nodejs
-
 	VERSION=node_12.x
 	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
 
 	# Dropbox
-	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	#echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/dropbox.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
 
 	# Spotify
@@ -180,10 +181,8 @@ base_min() {
 		xcompmgr \
 		xz-utils \
 		zip \
-		python-gpg dropbox \
 		tmux \
 		spotify-client \
-		kubectl \
 		--no-install-recommends
 
 	# power management for xcfe
@@ -209,8 +208,6 @@ base() {
 		apparmor \
 		bridge-utils \
 		cgroupfs-mount \
-		google-cloud-sdk \
-		libapparmor-dev \
 		chromium-browser \
 		libltdl-dev \
 		libseccomp-dev \
@@ -275,7 +272,8 @@ install_docker() {
 	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
 
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+	#echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
 	sudo apt update
 	sudo apt-get install -y docker-ce
