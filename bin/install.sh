@@ -131,7 +131,11 @@ setup_sources() {
 	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
 
 	#add keypass repository
-	sudo apt-add-repository ppa:jtaylor/keepass
+	sudo apt-add-repository -y ppa:jtaylor/keepass
+
+	# add signal app repo
+	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 }
 
 base_min() {
@@ -188,6 +192,7 @@ base_min() {
 		spotify-client \
 		kubectl \
 		keepass2 \
+		signal-desktop \
 		--no-install-recommends
 
 	# power management for xcfe
