@@ -1,72 +1,70 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
-        "**/node_modules/*/**": true
-    },
-    "workbench.settings.useSplitJSON": true,
-    "workbench.settings.editor": "json",
-    "files.exclude": {
-        "**/.git": true,
-        "**/.idea": true,
-        "**/.svn": true,
-        "**/.DS_Store": true,
-        "public/build": true,
-        "public/vendor": true,
-        "tmp": true
-    },
-    "search.useIgnoreFiles": false,
-    "search.exclude": {
-        "**/data/plugins": true,
-        "**/node_modules": true,
-        "**/vendor": true
-    },
-    "go.lintOnSave": "file",
-    "go.lintTool": "golint",
-    "go.formatTool": "goimports",
-    "editor.renderWhitespace": "boundary",
-    "cSpell.ignoreWords": [
-        "grafana"
-    ],
-    "editor.minimap.enabled": false,
-    "explorer.openEditors.visible": 0,
-    "workbench.editor.enablePreview": false,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": false,
-        "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": true
-    },
-    "gitlens.keymap": "chorded",
-    "window.zoomLevel": 1,
-    "explorer.confirmDelete": false,
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": false,
-    "go.useLanguageServer": false,
-    "go.languageServerExperimentalFeatures": {
-        "diagnostics": true // for diagnostics as you type
-    },
-    "[go]": {
-        "editor.snippetSuggestions": "none",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        },
-    },
-    "gopls": {
-        "usePlaceholders": true, // add parameter placeholders when completing a function
-    },
-    "go.buildOnSave": "off",
-    "go.vetOnSave": "off",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
+  "workbench.settings.useSplitJSON": true,
+  "workbench.settings.editor": "json",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.idea": true,
+    "**/.svn": true,
+    "**/.DS_Store": true,
+    "public/build": true,
+    "public/vendor": true,
+    "tmp": true
+  },
+  "search.useIgnoreFiles": false,
+  "search.exclude": {
+    "**/data/plugins": true,
+    "**/node_modules": true,
+    "**/vendor": true
+  },
+  "go.lintOnSave": "file",
+  "go.lintTool": "golint",
+  "go.formatTool": "goimports",
+  "editor.renderWhitespace": "boundary",
+  "cSpell.ignoreWords": ["grafana"],
+  "editor.minimap.enabled": false,
+  "explorer.openEditors.visible": 0,
+  "workbench.editor.enablePreview": false,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true,
+    "suppressUpdateNotice": true,
+    "suppressWelcomeNotice": true
+  },
+  "gitlens.keymap": "chorded",
+  "window.zoomLevel": 1,
+  "explorer.confirmDelete": false,
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.lineHistory.enabled": false,
+  "go.useLanguageServer": true,
+  "go.languageServerExperimentalFeatures": {
+    "diagnostics": true // for diagnostics as you type
+  },
+  "[go]": {
+    "editor.snippetSuggestions": "none",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true
+      "source.organizeImports": true
     }
+  },
+  "gopls": {
+    "usePlaceholders": true // add parameter placeholders when completing a function
+  },
+  "go.buildOnSave": "off",
+  "go.vetOnSave": "off",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }
