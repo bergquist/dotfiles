@@ -134,7 +134,7 @@ setup_sources() {
 	sudo apt-add-repository -y ppa:jtaylor/keepass
 
 	# add veracrypt repo
-	sudo add-apt-repository ppa:unit193/encryption
+	sudo add-apt-repository -y ppa:unit193/encryption
 
 	# add signal app repo
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list

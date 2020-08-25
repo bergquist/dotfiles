@@ -43,21 +43,19 @@ windows:
       # synchronize: after
       panes:
         - grafana:
-          - cdgf
-          - make run
-        - static: 
-          - cdgf
+            - cdgf
+        - static:
+            - cdgf
   - git:
-      layout: main-vertical 
+      layout: main-vertical
       panes:
         - git:
-          - cdgf
-          - git status
+            - cdgf
+            - git status
         - git2:
-          - cdgf
+            - cdgf
 
-      
-  - devenv: cd ~/go/src/github.com/grafana/grafana/devenv
+  - hg: cd ~/go/src/github.com/grafana/hosted-grafana
   - bash: cd ~
   - bash: cd ~
   - bash: cd ~
