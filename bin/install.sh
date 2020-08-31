@@ -340,28 +340,16 @@ install_golang() {
 	go get golang.org/x/tools/cmd/guru
 	go get github.com/Unknwon/bra
 
+	GO111MODULE=on go get -u github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+	GO111MODULE=on go get github.com/grafana/tanka/cmd/tk
+
 	go get github.com/github/hub
-	#go get github.com/jessfraz/amicontained
-	#go get github.com/jessfraz/apk-file
-	#go get github.com/jessfraz/audit
-	#go get github.com/jessfraz/certok
-	#go get github.com/jessfraz/cliaoke
-	#go get github.com/jessfraz/ghb0t
-	#go get github.com/jessfraz/junk/sembump
-	#go get github.com/jessfraz/netns
-	#go get github.com/jessfraz/pastebinit
 	go get github.com/jessfraz/pepper
-	#go get github.com/jessfraz/reg
 	go get github.com/jessfraz/udict
 	go get github.com/jessfraz/weather
-
-	#go get github.com/axw/gocov/gocov
 	go get github.com/crosbymichael/gistit
 	go get github.com/davecheney/httpstat
-	#go get github.com/FiloSottile/gvt
-	#go get github.com/FiloSottile/vendorcheck
 	go get github.com/google/gops
-	#go get github.com/jstemmer/gotags
 	go get github.com/nsf/gocode
 	go get github.com/rogpeppe/godef
 
@@ -382,7 +370,7 @@ setup_golang_devenv() {
 	set -x
 	set +e
 
-	myprojs=( grafana/grafana grafana/grafana-plugin-sdk-go grafana/grafana.org grafana/grafonnet-lib grafana/fake-data-gen grafana/play.grafana.com grafana/grafana-docker bergquist/bergquist.github.com )
+	myprojs=( grafana/grafana grafana/grafana-plugin-sdk-go grafana/hosted-grafana grafana/grafonnet-lib )
 	for project in "${myprojs[@]}"; do
 		owner=$(dirname "$project")
 		repo=$(basename "$project")
