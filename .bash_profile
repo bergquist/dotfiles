@@ -61,3 +61,5 @@ export NVM_DIR="$HOME/.nvm"
 #    . /etc/bash_completion
 #  fi
 #fi
+
+source ~/.bash_secret
