@@ -204,6 +204,7 @@ base_min() {
 	sudo apt-get clean
 
 	install_scripts
+	install_nvm
 }
 
 # installs base packages
@@ -709,6 +710,10 @@ install_gcloud() {
 	sudo apt-get install google-cloud-sdk google-cloud-sdk-app-engine-go
 }
 
+install_nvm() {
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+}
+
 usage() {
 	echo -e "install.sh\n\tThis script installs my basic setup for a debian laptop\n"
 	echo "Usage:"
@@ -730,6 +735,7 @@ usage() {
 	echo "  jsonnet                             - install jsonnet"
 	echo "  dropbox                             - install dropbox"
 	echo "  gcloud                              - install gcloud"
+	echo "  nvm                                 - install nvm"
 }
 
 main() {
