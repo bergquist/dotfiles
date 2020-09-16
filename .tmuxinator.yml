@@ -35,30 +35,30 @@ root: ~/
 # post: tmux -CC attach -t devenv
 
 windows:
-  - grafana:
-      layout: even-horizontal
-      # even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
-      panes:
-        - grafana:
-            - cdgf
-        - static:
-            - cdgf
-  - git:
-      layout: main-vertical
-      panes:
-        - git:
-            - cdgf
-            - git status
-        - git2:
-            - cdgf
+    - grafana:
+          layout: even-horizontal
+          # even-horizontal, even-vertical, main-horizontal, main-vertical, or tiled
+          # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+          # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+          # synchronize: after
+          panes:
+              - grafana:
+                    - cdgf
+              - static:
+                    - cdgf
+    - git:
+          layout: main-vertical
+          panes:
+              - git:
+                    - cdgf
+                    - git status
+              - git2:
+                    - cdgf
 
-  - hg: cd ~/go/src/github.com/grafana/hosted-grafana
-  - bash: cd ~
-  - bash: cd ~
-  - bash: cd ~
-  - bash: cd ~
-  - dotfiles: cd ~/.dotfiles
-  - irssi: ssh bissa
+    - hg: cdgf
+    - deploy: cdd
+    - bash: cd ~
+    - bash: cd ~
+    - bash: cd ~
+    - dotfiles: cd ~/.dotfiles
+    - irssi: ssh bissa
