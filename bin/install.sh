@@ -139,6 +139,10 @@ setup_sources() {
 	# add signal app repo
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+
+	# add k6 repo
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+	echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
 }
 
 base_min() {
@@ -197,6 +201,7 @@ base_min() {
 		keepass2 \
 		veracrypt \
 		signal-desktop \
+		k6 \
 		--no-install-recommends
 
 	sudo apt-get autoremove
