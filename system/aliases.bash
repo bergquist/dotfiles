@@ -57,3 +57,5 @@ function dex() {
 		docker exec -ti $(docker ps -q|head -1) $*
 	fi
 }
+
+alias envup="export $(grep -v '#.*' .env | xargs)"
