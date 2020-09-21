@@ -98,8 +98,16 @@ setup_sources() {
 	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
+	# Add vscode keys
     echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
 	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+	# Add azure cli
+	curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
+	
+	AZ_REPO=$(lsb_release -cs)
+	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
 
 	#yarn repo and key
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -202,6 +210,7 @@ base_min() {
 		veracrypt \
 		signal-desktop \
 		k6 \
+		azure-cli \
 		--no-install-recommends
 
 	sudo apt-get autoremove
