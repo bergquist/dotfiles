@@ -151,6 +151,16 @@ setup_sources() {
 	# add k6 repo
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 	echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
+
+	# add github cli
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+	sudo apt-add-repository https://cli.github.com/packages
+
+	# add terraform cli
+	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+
 }
 
 base_min() {
@@ -211,6 +221,8 @@ base_min() {
 		signal-desktop \
 		k6 \
 		azure-cli \
+		gh \
+		terraform \
 		--no-install-recommends
 
 	sudo apt-get autoremove
