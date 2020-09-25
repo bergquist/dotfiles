@@ -58,4 +58,10 @@ function dex() {
 	fi
 }
 
-alias envup="export $(grep -v '#.*' .env | xargs)"
+envup() {
+	(
+		export $(grep -v '#.*' .env | xargs)
+	)
+}
+
+export -f envup
