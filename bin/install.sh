@@ -223,6 +223,7 @@ base_min() {
 		azure-cli \
 		gh \
 		terraform \
+		shellcheck \
 		--no-install-recommends
 
 	sudo apt-get autoremove
