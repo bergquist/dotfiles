@@ -486,6 +486,8 @@ install_scripts() {
 	# install lolcat
 	sudo wget https://raw.githubusercontent.com/tehmaze/lolcat/master/lolcat -O /usr/local/bin/lolcat
 	sudo chmod +x /usr/local/bin/lolcat
+
+	curl -sSL "https://github.com/derailed/k9s/releases/download/v0.24.10/k9s_v0.24.10_Linux_x86_64.tar.gz" | sudo tar -v -C /usr/local -xz
 }
 
 # install syncthing
