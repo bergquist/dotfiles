@@ -228,6 +228,7 @@ base_min() {
 		terraform \
 		shellcheck \
 		brave-browser \
+		ripgrep \
 		--no-install-recommends
 
 	sudo apt-get autoremove
