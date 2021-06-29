@@ -1,7 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    //  "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.formatOnSave": true,
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
@@ -29,7 +30,9 @@
   "go.lintTool": "golint",
   "go.formatTool": "goimports",
   "editor.renderWhitespace": "boundary",
-  "cSpell.ignoreWords": ["grafana"],
+  "cSpell.ignoreWords": [
+    "grafana"
+  ],
   "editor.minimap.enabled": false,
   "explorer.openEditors.visible": 0,
   "workbench.editor.enablePreview": false,
@@ -46,7 +49,7 @@
     "suppressWelcomeNotice": true
   },
   "gitlens.keymap": "chorded",
-  "window.zoomLevel": 2,
+  "window.zoomLevel": 0,
   "explorer.confirmDelete": false,
   "gitlens.views.fileHistory.enabled": true,
   "gitlens.views.lineHistory.enabled": false,
@@ -66,8 +69,11 @@
   },
   "go.buildOnSave": "off",
   "go.vetOnSave": "off",
-  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  }
+    "source.organizeImports": false
+  },
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "go.toolsManagement.autoUpdate": true
 }
