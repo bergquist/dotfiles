@@ -72,8 +72,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": false
   },
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
-  },
   "go.toolsManagement.autoUpdate": true
 }

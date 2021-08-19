@@ -316,16 +316,14 @@ install_docker() {
 	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
 
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	#echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan stable" | sudo tee /etc/apt/sources.list.d/docker.list
 
 	sudo apt update
 	sudo apt-get install -y docker-ce
 
-	# # update grub with docker configs and power-saving items
-	# sed -i.bak 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1 pcie_aspm=force apparmor=1 security=apparmor"/g' /etc/default/grub
-	# echo "Docker has been installed. If you want memory management & swap"
-	# echo "run update-grub & reboot"
+	# install docker-compose
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
 }
 
 # install/update golang from source
