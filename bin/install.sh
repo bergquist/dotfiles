@@ -315,11 +315,12 @@ install_docker() {
 	sudo mkdir -p /etc/bash_completion.d
 	sudo curl -sSL -o /etc/bash_completion.d/docker https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker
 
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan stable" | sudo tee /etc/apt/sources.list.d/docker.list
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 	sudo apt update
-	sudo apt-get install -y docker-ce
+	sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 	# install docker-compose
 	sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
