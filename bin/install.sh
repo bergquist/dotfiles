@@ -98,9 +98,6 @@ setup_sources() {
 	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
-	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-	curl https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg | sudo apt-key add -
-
 	# Add vscode keys
     echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list
 	curl -sSL https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
