@@ -75,3 +75,5 @@
 
 [push]
     default = simple
+[branch]
+	sort = -committerdate

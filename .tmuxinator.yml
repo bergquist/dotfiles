@@ -14,7 +14,7 @@ root: ~/
 # on_project_first_start: command
 # Run on project start, after the first time
 # on_project_restart: command
-# Run on project exit ( detaching from tmux session )
+# Run on project e xit ( detaching from tmux session )
 # on_project_exit: command
 # Run on project stop
 # on_project_stop: command
@@ -55,7 +55,17 @@ windows:
                     - git2:
                             - cdgf
 
-      - hg: cdhg
+      - hg: 
+              layout: main-horizontal
+              panes:
+                     - hgapi: 
+                        - cdhg
+                        - cd dev
+                     - hgapi: 
+                        - cdhg
+                        - cd dev
+                     - hgctl:
+                         - cdhg
       - deploy: cdd
       - bash: cd ~
       - bash: cd ~
