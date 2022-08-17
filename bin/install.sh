@@ -28,8 +28,8 @@ check_is_sudo() {
 
 
 setup_sources_min() {
-	sudo apt-get update
-	sudo apt-get install -y \
+	sudo apt update
+	sudo apt install -y \
 		apt-transport-https \
 		ca-certificates \
 		curl \
@@ -85,14 +85,14 @@ setup_sources() {
 	#EOF
 
 	# Create an environment variable for the correct distribution
-	#CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-	CLOUD_SDK_REPO="cloud-sdk-xenial"
+	CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+	#CLOUD_SDK_REPO="cloud-sdk-xenial"
 	export CLOUD_SDK_REPO
 
 	# Add the Cloud SDK distribution URI as a package source
-	echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+	#echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
 	# Import the Google Cloud Platform public key
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	#curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 	# Add the Google Chrome distribution URI as a package source
 	echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
@@ -139,26 +139,26 @@ setup_sources() {
 	#sudo apt-key adv --keyserver pool.sks-keyservers.net --recv-keys CD4E8809
 
 	#add keypass repository
-	sudo apt-add-repository -y ppa:jtaylor/keepass
+	#sudo apt-add-repository -y ppa:jtaylor/keepass
 
 	# add veracrypt repo
-	sudo add-apt-repository -y ppa:unit193/encryption
+	#sudo add-apt-repository -y ppa:unit193/encryption
 
 	# add signal app repo
-	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+	#echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 	#curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 
 	# add k6 repo
 	#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-	echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
+	# echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
 
 	# add github cli
 	#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-	sudo apt-add-repository https://cli.github.com/packages
+	# sudo apt-add-repository https://cli.github.com/packages
 
 	# add terraform cli
-	#curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+	# curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	# sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
 
 }
@@ -172,6 +172,7 @@ base_min() {
 		automake \
 		bash-completion \
 		bc \
+		build-essential \
 		bzip2 \
 		ca-certificates \
 		coreutils \
@@ -199,6 +200,7 @@ base_min() {
 		net-tools \
 		neovim \
 		pinentry-curses \
+		ruby \
 		rxvt-unicode-256color \
 		scdaemon \
 		silversearcher-ag \
@@ -240,10 +242,10 @@ base_min() {
 base() {
 	base_min;
 
-	sudo apt-get update
-	sudo apt-get -y upgrade
+	sudo apt update
+	sudo apt -y upgrade
 
-	sudo apt-get install -y \
+	sudo apt install -y \
 		alsa-utils \
 		apparmor \
 		bridge-utils \
@@ -261,11 +263,11 @@ base() {
 		--no-install-recommends
 
 	# install tlp with recommends
-	sudo apt-get install -y tlp tlp-rdw
+	sudo apt install -y tlp tlp-rdw
 
-	sudo apt-get autoremove
-	sudo apt-get autoclean
-	sudo apt-get clean
+	sudo apt autoremove
+	sudo apt autoclean
+	sudo apt clean
 
 	install_docker
 }
@@ -359,37 +361,37 @@ install_golang() {
 	(
 	set -x
 	set +e
-	go get -u github.com/golang/protobuf/protoc-gen-go
-	go get github.com/golang/lint/golint
-	go get golang.org/x/tools/cmd/cover
-	go get golang.org/x/review/git-codereview
-	go get golang.org/x/tools/cmd/goimports
-	go get golang.org/x/tools/cmd/gorename
-	go get golang.org/x/tools/cmd/guru
-	go get github.com/Unknwon/bra
+	go install github.com/golang/protobuf/protoc-gen-go@latest
+	go install github.com/golang/lint/golint@latest
+	go install golang.org/x/tools/cmd/cover@latest
+	go install golang.org/x/review/git-codereview@latest
+	go install golang.org/x/tools/cmd/goimports@latest
+	go install golang.org/x/tools/cmd/gorename@latest
+	go install golang.org/x/tools/cmd/guru@latest
+	go install github.com/Unknwon/bra@latest
 
-	GO111MODULE=on go get -u github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb
+	GO111MODULE=on go install -u github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
 	GO111MODULE=on go get github.com/grafana/tanka/cmd/tk
 
-	go get github.com/github/hub
-	go get github.com/jessfraz/pepper
-	go get github.com/jessfraz/udict
-	go get github.com/jessfraz/weather
-	go get github.com/crosbymichael/gistit
-	go get github.com/davecheney/httpstat
-	go get github.com/google/gops
-	go get github.com/nsf/gocode
-	go get github.com/rogpeppe/godef
+	go install github.com/github/hub@latest
+	go install github.com/jessfraz/pepper@latest
+	go install github.com/jessfraz/udict@latest
+	go install github.com/jessfraz/weather@latest
+	go install github.com/crosbymichael/gistit@latest
+	go install github.com/davecheney/httpstat@latest
+	go install github.com/google/gops@latest
+	go install github.com/nsf/gocode@latest
+	go install github.com/rogpeppe/godef@latest
 
-	go get github.com/uudashr/gopkgs/cmd/gopkgs
-	go get github.com/ramya-rao-a/go-outline
-	go get github.com/acroca/go-symbols
-	go get github.com/fatih/gomodifytags
-	go get github.com/haya14busa/goplay/cmd/goplay
-	go get github.com/josharian/impl
-	go get golang.org/x/tools/cmd/godoc
-	go get github.com/cweill/gotests/...
-	go get github.com/derekparker/delve/cmd/dlv
+	go install github.com/uudashr/gopkgs/cmd/gopkgs@latest
+	go install github.com/ramya-rao-a/go-outline@latest
+	go install github.com/acroca/go-symbols@latest
+	go install github.com/fatih/gomodifytags@latest
+	go install github.com/haya14busa/goplay/cmd/goplay@latest
+	go install github.com/josharian/impl@latest
+	go install golang.org/x/tools/cmd/godoc@latest
+	go install github.com/cweill/gotests/...@latest
+	go install github.com/derekparker/delve/cmd/dlv@latest
 	)
 }
 
