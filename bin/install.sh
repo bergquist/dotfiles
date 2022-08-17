@@ -38,13 +38,13 @@ setup_sources_min() {
 		--no-install-recommends
 
 	# neovim
-	cat <<-EOF | sudo tee /etc/apt/sources.list.d/neovim.list
-	deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
-	deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
-	EOF
+	# cat <<-EOF | sudo tee /etc/apt/sources.list.d/neovim.list
+	# deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
+	# deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu xenial main
+	# EOF
 
 	# add the neovim ppa gpg key
-	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
+	# sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 9DBB0BE9366964F134855E2255F96FCF8231B6DD
 }
 
 # sets up apt sources
@@ -110,27 +110,27 @@ setup_sources() {
     sudo tee /etc/apt/sources.list.d/azure-cli.list
 
 	#yarn repo and key
-	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+	#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
 	# Nodejs
-	VERSION=node_12.x
-	echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-	echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
-	curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+	#VERSION=node_12.x
+	#echo "deb https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+	#echo "deb-src https://deb.nodesource.com/$VERSION $(lsb_release -s -c) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
+	#curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
 
 	# Dropbox
 	#echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu $(lsb_release -s -c) main" | sudo tee /etc/apt/sources.list.d/dropbox.list
-	echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/dropbox.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
+	#echo "deb [arch=i386,amd64] http://linux.dropbox.com/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/dropbox.list
+	#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
 
 	# Spotify
-	curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	#curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+	#echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 	# Kubectl
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-	echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+	#curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	#echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 
 	# add the yubico ppa gpg key
 	#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 3653E21064B19D134466702E43D5C49532CBA1A9
@@ -146,18 +146,18 @@ setup_sources() {
 
 	# add signal app repo
 	echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
-	curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+	#curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 
 	# add k6 repo
-	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+	#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
 	echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
 
 	# add github cli
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+	#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
 	sudo apt-add-repository https://cli.github.com/packages
 
 	# add terraform cli
-	curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+	#curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 	sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
 
@@ -224,7 +224,6 @@ base_min() {
 		gh \
 		terraform \
 		shellcheck \
-		brave-browser \
 		ripgrep \
 		--no-install-recommends
 
@@ -741,7 +740,7 @@ install_gcloud() {
 }
 
 install_nvm() {
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 }
 
 usage() {

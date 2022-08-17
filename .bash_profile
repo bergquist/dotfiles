@@ -42,9 +42,6 @@ json() {
 	fi
 }
 
-# add hub features to git
-eval "$(hub alias -s)"
-
 # include timestamp in bash history
 HISTTIMEFORMAT="%F %T "
 
