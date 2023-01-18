@@ -49,7 +49,6 @@
     "suppressWelcomeNotice": true
   },
   "gitlens.keymap": "chorded",
-  "window.zoomLevel": 0,
   "explorer.confirmDelete": false,
   "gitlens.views.fileHistory.enabled": true,
   "gitlens.views.lineHistory.enabled": false,
@@ -72,5 +71,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": false
   },
-  "go.toolsManagement.autoUpdate": true
+  "go.toolsManagement.autoUpdate": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "window.zoomLevel": 1
 }
