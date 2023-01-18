@@ -107,6 +107,12 @@ setup_sources() {
 	AZ_REPO=$(lsb_release -cs)
 	echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
 
+	# tailscale
+	curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+	curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+
+
 	#yarn repo and key
 	#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 	#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -201,7 +207,6 @@ base_min() {
 		neovim \
 		pinentry-curses \
 		ruby \
-		rxvt-unicode-256color \
 		scdaemon \
 		silversearcher-ag \
 		ssh \
@@ -216,18 +221,23 @@ base_min() {
 		xz-utils \
 		zip \
 		tmux \
-		spotify-client \
 		kubectl \
 		keepass2 \
-		veracrypt \
-		signal-desktop \
-		k6 \
 		azure-cli \
 		gh \
-		terraform \
 		shellcheck \
 		ripgrep \
+		google-cloud-cli \
+		google-cloud-sdk-gke-gcloud-auth-plugin \ 
+		tailscale \
 		--no-install-recommends
+
+		# 		spotify-client \
+		#		signal-desktop \
+		#		k6 \
+		# 		terraform \
+		# veracrypt \
+		# rxvt-unicode-256color \
 
 	sudo apt-get autoremove
 	sudo apt-get autoclean
